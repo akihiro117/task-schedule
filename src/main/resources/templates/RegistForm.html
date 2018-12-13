@@ -12,14 +12,23 @@ Copyright (c) 2018. All Rights Reserved.
 <title>会員登録</title>
 </head>
 <body>
-<form action="/MemberRegistrationConfirm" method="POST">
+
+
+<form action="/MemberRegistrationConfirm" th:object="${memberRegistrationForm}" method="POST">
+<div align="center">
+<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span><br>
+<span th:if="${#fields.hasErrors('name')}" th:errors="*{eMail}"></span><br>
+<span th:if="${#fields.hasErrors('name')}" th:errors="*{password}"></span><br>
+<span th:if="${#fields.hasErrors('name')}" th:errors="*{passwordConfirm}"></span><br>
+</div>
+
 <table align="center">
     <tr>
         <td>
                 名前：
         </td>
         <td>
-                <input type="text" id="member-name" name="name">
+                <input type="text" th:field="*{name}">
         </td>
     </tr>
     <tr>
@@ -27,7 +36,7 @@ Copyright (c) 2018. All Rights Reserved.
                 メールアドレス：
         </td>
         <td>
-                <input type="text" id="e-mail" name="eMail">
+                <input type="text" th:field="*{eMail}">
         </td>
     </tr>
     <tr>
@@ -35,14 +44,14 @@ Copyright (c) 2018. All Rights Reserved.
                 パスワード：
         </td>
         <td>
-                <input type="password" id="password" name="password">
+                <input type="password" th:field="*{password}">
         </td>
     <tr>
         <td>
                 パスワード(確認用)：
         </td>
         <td>
-                <input type="password" id="password-confirm" name="passwordConfirm">
+                <input type="password" th:field="*{passwordConfirm}">
         </td>
     </tr>
     <tr>

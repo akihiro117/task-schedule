@@ -4,6 +4,7 @@
 
 package com.webapp.taskschedule.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,11 +13,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.webapp.taskschedule.entity.MemberRegistrationEntity;
 import com.webapp.taskschedule.form.MemberRegistrationForm;
+import com.webapp.taskschedule.service.RegistMemberService;
 
 @Controller
 @SessionAttributes(value = "form")
 public class RegistMemberController {
+
+	@Autowired
+	RegistMemberService registMemberService;
 
 	/**
 	 * 会員情報入力画面を表示。
@@ -59,11 +65,31 @@ public class RegistMemberController {
 	 * 入力された会員情報をDBに登録。
 	 * @return 会員登録の結果画面。
 	 */
-	@RequestMapping("/MemberRegistrationResult")
-	String registMember() {
+	@RequestMapping(value = "/MemberRegistrationResult", params = "regist")
+	String registMember(@ModelAttribute("form") MemberRegistrationForm form) {
 
+		MemberRegistrationEntity entity = new MemberRegistrationEntity();
+		entity.setName(form.getName());
+		entity.setEMail(form.geteMail());
+		entity.setPassword(form.getPassword());
+
+		registMemberService.registMember(entity);
 		//会員登録の結果画面。
 		return "MemberRegistrationResult";
+	}
+
+	@RequestMapping(value = "/MemberRegistrationResult", params = "revise")
+	String returnRegistForm(@ModelAttribute("form") MemberRegistrationForm memberRegistrationForm, Model model) {
+		model.addAttribute("source", "revise");
+
+
+		memberRegistrationForm.setPassword("");
+
+		//入力した値を登録フォームに表示したままにするために、
+		//attributeにformを追加する。
+		model.addAttribute(memberRegistrationForm);
+
+		return "RegistForm";
 	}
 
 }

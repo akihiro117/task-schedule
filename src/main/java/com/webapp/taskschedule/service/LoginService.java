@@ -18,10 +18,10 @@ public class LoginService {
 	@Autowired LoginMapper loginMapper;
 
 	/**
-	 * ログインフォーム に入力された情報がDBに存在するか確認する。
+	 * ログインフォーム に入力された情報がDBに1件存在するか確認する。
+	 * return 1件存在する->true。1件存在しない->false。
 	 */
 	public boolean checkLogin(LoginEntity loginEntity) {
-
 
 		//検索結果。
 		int numMemberInfo = loginMapper.selectNumMemberInfo(loginEntity);

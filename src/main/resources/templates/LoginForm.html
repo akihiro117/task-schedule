@@ -13,14 +13,14 @@ Copyright (c) 2018. All Rights Reserved.
 <title>ログイン</title>
 </head>
 <body>
-<form action="@{/login}" method="post">
+<form action="/login" th:object="${loginForm}" method="POST">
     <table align="center">
         <tr>
                 <td>
                     メールアドレス：
                 </td>
                 <td>
-                    <input type="text" id="e-mail" name="eMail"/>
+                    <input type="text" id="e-mail" name="mailAddress"/>
                 </td>
         </tr>
         <tr>

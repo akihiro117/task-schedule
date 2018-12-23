@@ -22,6 +22,7 @@ public class RegistMemberService {
 	 * 会員情報をDBに登録。
 	 */
 	public void registMember(MemberRegistrationEntity entity) {
+		//TODO:passwordを暗号化して登録するようにする。
 
 		registMemberMapper.insertMemberInfo(entity);
 

@@ -30,6 +30,9 @@ public class RegistMemberController {
 	 */
 	@RequestMapping("/RegistForm")
 	String showRegistMemberForm(Model model) {
+
+		model.addAttribute("source", "login");
+
 		//これを書いていないことが原因だった
 		model.addAttribute(new MemberRegistrationForm());
 

@@ -15,11 +15,11 @@ Copyright (c) 2018. All Rights Reserved.
 
 
 <form action="/MemberRegistrationConfirm" th:object="${memberRegistrationForm}" method="POST">
-<div th:if="${source eq null or not source.equals('revise')}" align="center">
+<div th:if="${source == null or (not source.equals('login') and not source.equals('revise'))}" align="center">
 <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span><br>
-<span th:if="${#fields.hasErrors('name')}" th:errors="*{eMail}"></span><br>
-<span th:if="${#fields.hasErrors('name')}" th:errors="*{password}"></span><br>
-<span th:if="${#fields.hasErrors('name')}" th:errors="*{passwordConfirm}"></span><br>
+<span th:if="${#fields.hasErrors('eMail')}" th:errors="*{eMail}"></span><br>
+<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span><br>
+<span th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></span><br>
 </div>
 
 <table align="center">

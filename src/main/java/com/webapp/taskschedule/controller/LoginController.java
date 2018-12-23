@@ -40,7 +40,7 @@ public class LoginController {
 	 * @return 次の遷移先。
 	 */
 	@RequestMapping("/login")
-	public String login(@ModelAttribute LoginForm loginForm) {
+	public String login(@ModelAttribute LoginForm loginForm, Model model) {
 
 		//mapperに渡すパラメータを入れるためのオブジェクト。
 		LoginEntity loginEntity = new LoginEntity();
@@ -54,6 +54,9 @@ public class LoginController {
 			//アプリケーションのホーム画面に遷移。
 			return "Home";
 		} else {
+			//ログインに失敗した場合にログインフォーム に表示するメッセージ。
+			model.addAttribute("errMsg", "メールアドレスもしくはパスワードが間違っています。");
+
 			//存在しない場合は、ログインフォーム に戻る。
 			return "LoginForm";
 		}

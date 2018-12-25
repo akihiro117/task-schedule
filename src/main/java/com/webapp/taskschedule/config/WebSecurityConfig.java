@@ -18,11 +18,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		//ログインページを指定。
 		//ログインページへのアクセスは全員許可する。
-		http.formLogin()
+		//TODO:csrf対策を有効にする。
+		http.csrf().disable().formLogin()
 				.loginPage("/")
 				.permitAll();
-		http.authorizeRequests()
+		//TODO:csrf対策を有効にする。
+		http.csrf().disable().authorizeRequests()
+				.antMatchers("/MemberRegistrationConfirm").permitAll()
+				.antMatchers("/RegistForm").permitAll()
+				.antMatchers("/MemberRegistrationResult").permitAll()
 				.anyRequest().authenticated();
+		//http.csrf().ignoringAntMatchers("/MemberRegistrationConfirm");
 	}
 
 }

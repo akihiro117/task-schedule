@@ -10,9 +10,6 @@ import javax.validation.constraints.Size;
  */
 public class MemberRegistrationForm {
 	@NotBlank(message = "入力してください。")
-	private String name;
-
-	@NotBlank(message = "入力してください。")
 	private String eMail;
 
 	@NotBlank(message = "入力してください。")
@@ -23,14 +20,6 @@ public class MemberRegistrationForm {
 	@NotBlank(message = "入力してください。")
 	@Size(min = 8, message="{2}文字以上入力してください。")
 	private String passwordConfirm;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public String geteMail() {
 		return eMail;

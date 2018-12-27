@@ -67,12 +67,11 @@ public class RegistMemberController {
 	/**
 	 * 入力された会員情報をDBに登録。
 	 * @return 会員登録の結果画面。
-	 */
+	**/
 	@RequestMapping(value = "/MemberRegistrationResult", params = "regist")
 	String registMember(@ModelAttribute("form") MemberRegistrationForm form) {
 
 		MemberRegistrationEntity entity = new MemberRegistrationEntity();
-		entity.setName(form.getName());
 		entity.setEMail(form.geteMail());
 		entity.setPassword(form.getPassword());
 

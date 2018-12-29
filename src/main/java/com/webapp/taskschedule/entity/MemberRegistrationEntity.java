@@ -9,19 +9,10 @@ package com.webapp.taskschedule.entity;
  *
  */
 public class MemberRegistrationEntity {
-	private String name;
 
 	private String eMail;
 
 	private String password;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public String getEMail() {
 		return eMail;

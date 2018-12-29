@@ -5,9 +5,8 @@
 
     <insert id="insertMemberInfo" parameterType="com.webapp.taskschedule.entity.MemberRegistrationEntity">
         INSERT INTO
-            MEMBER(name, e_mail, password)
+            MEMBER(E_MAIL, PASSWORD)
         VALUES(
-            #{name},
             #{eMail},
             #{password})
     </insert>

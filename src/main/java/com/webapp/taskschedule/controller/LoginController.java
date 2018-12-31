@@ -23,7 +23,7 @@ public class LoginController {
 	/**
 	 * ログインフォーム に遷移する。
 	 */
-	@RequestMapping("/")
+	@RequestMapping("/login")
 	public String showLoginForm(Model model) {
 
 		model.addAttribute(new LoginForm());
@@ -39,7 +39,7 @@ public class LoginController {
 	 * @param loginForm ログインフォーム に入力されたデータ。
 	 * @return 次の遷移先。
 	 */
-	@RequestMapping("/login")
+	@RequestMapping("/")
 	public String login(@ModelAttribute LoginForm loginForm, Model model) {
 
 		//mapperに渡すパラメータを入れるためのオブジェクト。
@@ -47,7 +47,8 @@ public class LoginController {
 		loginEntity.setMailAddress(loginForm.getMailAddress());
 		loginEntity.setPassword(loginForm.getPassword());
 
-		//ログインフォーム に入力されたデータの件数を取得。
+		//ログインフォーム に入力されたメールアドレスと
+		//パスワードの組合うかどうかを判定。
 		boolean isMember = loginService.checkLogin(loginEntity);
 
 		if (isMember) {

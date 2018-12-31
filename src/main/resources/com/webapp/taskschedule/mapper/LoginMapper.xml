@@ -3,16 +3,27 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.webapp.taskschedule.mapper.LoginMapper">
 
-    <select id="selectNumMemberInfo" resultType="_int"
+    <select id="selectPassword" resultType="String"
                                      parameterType="com.webapp.taskschedule.entity.LoginEntity">
         SELECT
-            COUNT(*)
+           PASSWORD
         FROM
            MEMBER
         WHERE
            E_MAIL = #{mailAddress}
-        AND
-           PASSWORD = #{password}
+
+    </select>
+
+    <select id="findOne" resultType="com.webapp.taskschedule.certification.Account"
+                         parameterType="String">
+        SELECT
+           E_MAIL AS mailAddress,
+           PASSWORD
+        FROM
+           MEMBER
+        WHERE
+           E_MAIL = #{mailAddress}
+
     </select>
 
 </mapper>

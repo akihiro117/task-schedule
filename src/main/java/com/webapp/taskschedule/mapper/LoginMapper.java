@@ -4,6 +4,7 @@
 
 package com.webapp.taskschedule.mapper;
 
+import com.webapp.taskschedule.certification.Account;
 import com.webapp.taskschedule.entity.LoginEntity;
 
 public interface LoginMapper {
@@ -13,5 +14,7 @@ public interface LoginMapper {
 	 * @param ログインフォーム に入力された情報。
 	 * @return ログインフォーム に入力された情報の件数。
 	 */
-	public int selectNumMemberInfo(LoginEntity loginEntity);
+	public String selectPassword(LoginEntity loginEntity);
+
+	public Account findOne(String mailAddress);
 }

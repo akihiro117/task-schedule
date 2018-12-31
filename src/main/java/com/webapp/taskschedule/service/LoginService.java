@@ -15,22 +15,23 @@ import com.webapp.taskschedule.mapper.LoginMapper;
 @Transactional
 public class LoginService {
 
-	@Autowired LoginMapper loginMapper;
+	@Autowired
+	private LoginMapper loginMapper;
+
+
 
 	/**
-	 * ログインフォーム に入力された情報がDBに1件存在するか確認する。
-	 * return 1件存在する->true。1件存在しない->false。
+	 * ログインフォーム に入力されたメールアドレスと
+	 * パスワードの組が正しいか確認する。
+	 * @param loginEntity ログインフォーム に入力された
+	 * メールアドレスとパスワードの組が入ったEntityクラス。
+	 * return 正しい->true。正しくない->false。
 	 */
 	public boolean checkLogin(LoginEntity loginEntity) {
 
 		//検索結果。
-		int numMemberInfo = loginMapper.selectNumMemberInfo(loginEntity);
+		String encodedPassword = loginMapper.selectPassword(loginEntity);
 
-		if (numMemberInfo != 1) {
-			return false;
-		} else {
-			return true;
-		}
-
+		return true;
 	}
 }

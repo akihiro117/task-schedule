@@ -4,29 +4,18 @@
 
 package com.webapp.taskschedule.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.webapp.taskschedule.entity.LoginEntity;
-import com.webapp.taskschedule.form.LoginForm;
-import com.webapp.taskschedule.service.LoginService;
 
 @Controller
 public class LoginController {
-
-	@Autowired
-	public LoginService loginService;
 
 	/**
 	 * ログインフォーム に遷移する。
 	 */
 	@RequestMapping("/login")
 	public String showLoginForm(Model model) {
-
-		model.addAttribute(new LoginForm());
 
 		//ログイン画面へ遷移。
 		return "LoginForm";
@@ -40,26 +29,9 @@ public class LoginController {
 	 * @return 次の遷移先。
 	 */
 	@RequestMapping("/")
-	public String login(@ModelAttribute LoginForm loginForm, Model model) {
+	public String login(Model model) {
 
-		//mapperに渡すパラメータを入れるためのオブジェクト。
-		LoginEntity loginEntity = new LoginEntity();
-		loginEntity.setMailAddress(loginForm.getMailAddress());
-		loginEntity.setPassword(loginForm.getPassword());
-
-		//ログインフォーム に入力されたメールアドレスと
-		//パスワードの組合うかどうかを判定。
-		boolean isMember = loginService.checkLogin(loginEntity);
-
-		if (isMember) {
-			//アプリケーションのホーム画面に遷移。
-			return "Home";
-		} else {
-			//ログインに失敗した場合にログインフォーム に表示するメッセージ。
-			model.addAttribute("errMsg", "メールアドレスもしくはパスワードが間違っています。");
-
-			//存在しない場合は、ログインフォーム に戻る。
-			return "LoginForm";
-		}
+		//アプリケーションのホーム画面に遷移。
+		return "Home";
 	}
 }

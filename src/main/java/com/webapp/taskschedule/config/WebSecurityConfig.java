@@ -33,11 +33,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.loginProcessingUrl("/authenticate")
 				.usernameParameter("mailAddress")
 				.passwordParameter("password")
+				.defaultSuccessUrl("/")
 				.permitAll();
 		//TODO:csrf対策を有効にする。
 		http.csrf().disable().authorizeRequests()
 				.antMatchers("/MemberRegistrationConfirm").permitAll()
-				.antMatchers("/RegistForm").permitAll()
+				.antMatchers("/MemberRegistrationForm").permitAll()
 				.antMatchers("/MemberRegistrationResult").permitAll()
 				.anyRequest().authenticated();
 		//http.csrf().ignoringAntMatchers("/MemberRegistrationConfirm");

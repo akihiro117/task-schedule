@@ -45,11 +45,7 @@ public class DbUserDetailsService implements UserDetailsService {
 	 */
 	private Collection<GrantedAuthority> getAuthorities(Account account) {
 		//認可が通った時にこのユーザに与える権限の範囲を設定する。
-		if (account.isAdmin()) {
-			return AuthorityUtils.createAuthorityList("ROLE_USER", "ROLE_ADMIN");
-		} else {
-			return AuthorityUtils.createAuthorityList("ROLE_USER");
-		}
+		return AuthorityUtils.createAuthorityList("ROLE_USER");
 	}
 
 }

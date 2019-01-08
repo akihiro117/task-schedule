@@ -1,4 +1,4 @@
-//RegistMemberService.java
+//MemberRegistrationService.java
 //Created by Akihiro Yamada on 2018/12/13.
 //Copyright (c) 2018. All Rights Reserved.
 
@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.webapp.taskschedule.entity.MemberRegistrationEntity;
-import com.webapp.taskschedule.mapper.RegistMemberMapper;
+import com.webapp.taskschedule.mapper.MemberRegistrationMapper;
 
 @Service
 @Transactional
-public class RegistMemberService {
+public class MemberRegistrationService {
 
 	@Autowired
-	RegistMemberMapper registMemberMapper;
+	MemberRegistrationMapper memberRegistrationMapper;
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -26,12 +26,10 @@ public class RegistMemberService {
 	/**
 	 * 会員情報をDBに登録。
 	 */
-	public void registMember(MemberRegistrationEntity entity) {
+	public void registerMember(MemberRegistrationEntity entity) {
 
 		entity.setPassword(passwordEncoder.encode(entity.getPassword()));
 
-		registMemberMapper.insertMemberInfo(entity);
-
-
+		memberRegistrationMapper.insertMemberInfo(entity);
 	}
 }

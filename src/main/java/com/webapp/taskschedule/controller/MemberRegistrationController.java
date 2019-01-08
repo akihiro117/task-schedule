@@ -1,4 +1,4 @@
-//RegistMemberController.java
+//MemberRegistrationController.java
 //Created by Akihiro Yamada on 2018/12/09.
 //Copyright (c) 2018. All Rights Reserved.
 
@@ -15,21 +15,21 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.webapp.taskschedule.entity.MemberRegistrationEntity;
 import com.webapp.taskschedule.form.MemberRegistrationForm;
-import com.webapp.taskschedule.service.RegistMemberService;
+import com.webapp.taskschedule.service.MemberRegistrationService;
 
 @Controller
 @SessionAttributes(value = "form")
-public class RegistMemberController {
+public class MemberRegistrationController {
 
 	@Autowired
-	private RegistMemberService registMemberService;
+	private MemberRegistrationService memberRegistrationService;
 
 	/**
 	 * 会員情報入力画面を表示。
 	 * @return 会員情報入力画面。
 	 */
-	@RequestMapping("/RegistForm")
-	public String showRegistMemberForm(Model model) {
+	@RequestMapping("/MemberRegistrationForm")
+	public String showMemberRegistrationForm(Model model) {
 
 		model.addAttribute("source", "login");
 
@@ -37,7 +37,7 @@ public class RegistMemberController {
 		model.addAttribute(new MemberRegistrationForm());
 
 		//会員情報入力画面に遷移。
-		return "RegistForm";
+		return "MemberRegistrationForm";
 	}
 
 	/**
@@ -77,21 +77,20 @@ public class RegistMemberController {
 	 * @return 会員登録の結果画面。
 	**/
 	@RequestMapping(value = "/MemberRegistrationResult", params = "regist")
-	public String registMember(@ModelAttribute("form") MemberRegistrationForm form) {
+	public String registerMember(@ModelAttribute("form") MemberRegistrationForm form) {
 
 		MemberRegistrationEntity entity = new MemberRegistrationEntity();
 		entity.setEMail(form.geteMail());
 		entity.setPassword(form.getPassword());
 
-		registMemberService.registMember(entity);
+		memberRegistrationService.registerMember(entity);
 		//会員登録の結果画面。
 		return "MemberRegistrationResult";
 	}
 
 	@RequestMapping(value = "/MemberRegistrationResult", params = "revise")
-	public String returnRegistForm(@ModelAttribute("form") MemberRegistrationForm memberRegistrationForm, Model model) {
+	public String returnRegistrationForm(@ModelAttribute("form") MemberRegistrationForm memberRegistrationForm, Model model) {
 		model.addAttribute("source", "revise");
-
 
 		memberRegistrationForm.setPassword("");
 
@@ -99,7 +98,7 @@ public class RegistMemberController {
 		//attributeにformを追加する。
 		model.addAttribute(memberRegistrationForm);
 
-		return "RegistForm";
+		return "RegistrationForm";
 	}
 
 }

@@ -45,5 +45,4 @@ public class MemberRegistrationForm {
 		this.passwordConfirm = passwordConfirm;
 	}
 
-
 }

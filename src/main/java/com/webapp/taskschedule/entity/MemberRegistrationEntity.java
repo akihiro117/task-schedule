@@ -1,4 +1,4 @@
-//RegistMemberController.java
+//MemberRegistrationEntity.java
 //Created by Akihiro Yamada on 2018/12/16.
 //Copyright (c) 2018. All Rights Reserved.
 

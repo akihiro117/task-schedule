@@ -17,21 +17,18 @@ public class LoginController {
 	@RequestMapping("/login")
 	public String showLoginForm(Model model) {
 
-		//ログイン画面へ遷移。
+		//ログイン画面。
 		return "LoginForm";
 	}
 
 	/**
-	 * ログイン機能を提供する。
-	 * ログインフォームに入力された情報が登録済みかチェックし、
-	 * 登録済みならホーム画面へ、未登録ならログインフォーム に遷移する。
-	 * @param loginForm ログインフォーム に入力されたデータ。
-	 * @return 次の遷移先。
+	 * メインページに遷移する。
+	 * ログインが成功した場合、このメソッドが呼び出される。
 	 */
 	@RequestMapping("/")
 	public String login(Model model) {
 
-		//アプリケーションのホーム画面に遷移。
-		return "Home";
+		//メインページ。
+		return "index";
 	}
 }

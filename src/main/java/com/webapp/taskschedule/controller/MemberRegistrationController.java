@@ -57,12 +57,12 @@ public class MemberRegistrationController {
 
 		if (hasCorrelationErr) {
 			model.addAttribute("errMsg", "異なるパスワードが入力されています。");
-			return "RegistForm";
+			return "MemberRegistrationForm";
 		}
 
 		if (result.hasErrors()) {
 			//入力エラーがある場合。
-			return "RegistForm";
+			return "MemberRegistrationForm";
 		}
 
 		//確認画面への表示と登録を行うため、値をsessionにセット。

@@ -14,6 +14,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -33,56 +35,75 @@ public class TaskRegistrationController {
 	@RequestMapping("/TaskRegistrationForm")
 	String showTaskRegistrationForm(Model model) {
 
+		model.addAttribute("source", "main");
+
 		model.addAttribute(new TaskRegistrationForm());
 
 		return "TaskRegistrationForm";
 	}
 
 	@RequestMapping("/TaskRegistration")
-	String registerTask(Model model, @ModelAttribute TaskRegistrationForm taskRegistrationForm) {
+	String registerTask(Model model, @Validated @ModelAttribute TaskRegistrationForm taskRegistrationForm,
+						BindingResult result) {
 
 		boolean hasUserDefinedErr = false;
 
 		List<String> errMsgs = new ArrayList<String>();
 
-		String strDate = taskRegistrationForm.getDeadLineYear() + "-" +
-						 taskRegistrationForm.getDeadLineMonth() + "-" +
-						 taskRegistrationForm.getDeadLineDay();
+		String deadLineYear = taskRegistrationForm.getDeadLineYear();
+		String deadLineMonth = taskRegistrationForm.getDeadLineMonth();
+		String deadLineDay = taskRegistrationForm.getDeadLineDay();
 
-		Date deadLine = converStrToDate(strDate, "yyyy-MM-dd");
 
-		if (deadLine == null) {
-			errMsgs.add("正しい日付を入力してください。");
-			hasUserDefinedErr = true;
+		if (!isNullOrEmpty(deadLineYear, deadLineMonth, deadLineDay)) {
+			//全てnullか空文字でなかった場合。
 
-		} else {
-			taskRegistrationForm.setDeadLine(deadLine);
+			String strDate = taskRegistrationForm.getDeadLineYear() + "-" +
+							 taskRegistrationForm.getDeadLineMonth() + "-" +
+							 taskRegistrationForm.getDeadLineDay();
+
+			Date deadLine = converStrToDate(strDate, "yyyy-MM-dd");
+
+			if (deadLine == null) {
+				errMsgs.add("正しい日付を入力してください。");
+				hasUserDefinedErr = true;
+
+			} else {
+				taskRegistrationForm.setDeadLine(deadLine);
+			}
+
 		}
 
-		Integer requiredHour = convertStrToInt(taskRegistrationForm.getRequiredHour());
+		if (!isNullOrEmpty(deadLineYear, deadLineMonth, deadLineDay)) {
 
-		if (requiredHour == null) {
-			errMsgs.add("時間を数値で入力してください。");
+			Integer requiredHour = convertStrToInt(taskRegistrationForm.getRequiredHour());
 
-			hasUserDefinedErr = true;
-		} else {
-			taskRegistrationForm.setIntRequiredHour(requiredHour);
+			if (requiredHour == null) {
+				errMsgs.add("時間を数値で入力してください。");
+
+				hasUserDefinedErr = true;
+			} else {
+				taskRegistrationForm.setIntRequiredHour(requiredHour);
+			}
+
+			Integer requiredMinute = convertStrToInt(taskRegistrationForm.getRequiredHour());
+
+			if (requiredMinute == null) {
+				errMsgs.add("分を数値で入力してください。");
+
+				hasUserDefinedErr = true;
+			} else if (requiredMinute >= 60 || requiredMinute < 0) {
+				errMsgs.add("正しい分を入力してください。");
+				hasUserDefinedErr = true;
+			} else {
+				taskRegistrationForm.setIntRequiredMinute(requiredMinute);
+			}
+
 		}
 
-		Integer requiredMinute = convertStrToInt(taskRegistrationForm.getRequiredHour());
+		if (hasUserDefinedErr || result.hasErrors()) {
+			model.addAttribute("errMsgs", errMsgs);
 
-		if (requiredMinute == null) {
-			errMsgs.add("分を数値で入力してください。");
-
-			hasUserDefinedErr = true;
-		} else if (requiredMinute >= 60 || requiredMinute < 0) {
-			errMsgs.add("正しい分を入力してください。");
-			hasUserDefinedErr = true;
-		} else {
-			taskRegistrationForm.setIntRequiredMinute(requiredMinute);
-		}
-
-		if (hasUserDefinedErr) {
 			return "TaskRegistrationForm";
 		}
 
@@ -111,6 +132,21 @@ public class TaskRegistrationController {
 		} catch (NumberFormatException e) {
 			return null;
 		}
+	}
+
+	/**
+	 * 引数が一つでもnullか空文字だったら、falseを返す。
+	 * @param strings
+	 * @return
+	 */
+	boolean isNullOrEmpty(String... strings) {
+
+		for (String str : strings) {
+			if (str == null || str.equals("")) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

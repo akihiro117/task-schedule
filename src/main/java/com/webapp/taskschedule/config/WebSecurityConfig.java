@@ -40,6 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/MemberRegistrationConfirm").permitAll()
 				.antMatchers("/MemberRegistrationForm").permitAll()
 				.antMatchers("/MemberRegistrationResult").permitAll()
+				.antMatchers("/css/*").permitAll()
+				.antMatchers("TaskList", "TaskRegistrationForm").hasRole("USER")
 				.anyRequest().authenticated();
 		//http.csrf().ignoringAntMatchers("/MemberRegistrationConfirm");
 	}

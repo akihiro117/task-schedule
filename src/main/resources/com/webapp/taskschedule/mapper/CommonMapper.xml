@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.webapp.taskschedule.mapper.CommonMapper">
+    <select id="selectMemberId" parameterType="com.webapp.taskschedule.entity.MemberEntity"
+                                resultType="_int">
+        SELECT
+           ID
+        FROM
+           MEMBER
+        WHERE
+           E_MAIL = #{eMail}
+    </select>
+
+</mapper>

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.webapp.taskschedule.entity.MemberRegistrationEntity;
+import com.webapp.taskschedule.entity.MemberEntity;
 import com.webapp.taskschedule.form.MemberRegistrationForm;
 import com.webapp.taskschedule.service.MemberRegistrationService;
 
@@ -79,7 +79,7 @@ public class MemberRegistrationController {
 	@RequestMapping(value = "/MemberRegistrationResult", params = "regist")
 	public String registerMember(@ModelAttribute("form") MemberRegistrationForm form) {
 
-		MemberRegistrationEntity entity = new MemberRegistrationEntity();
+		MemberEntity entity = new MemberEntity();
 		entity.setEMail(form.geteMail());
 		entity.setPassword(form.getPassword());
 

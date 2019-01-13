@@ -8,7 +8,7 @@ package com.webapp.taskschedule.entity;
  * DBに入れる値を格納するクラス。
  *
  */
-public class MemberRegistrationEntity {
+public class MemberEntity {
 
 	private String eMail;
 

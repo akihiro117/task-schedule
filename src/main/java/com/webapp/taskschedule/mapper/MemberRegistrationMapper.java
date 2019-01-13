@@ -4,11 +4,11 @@
 
 package com.webapp.taskschedule.mapper;
 
-import com.webapp.taskschedule.entity.MemberRegistrationEntity;
+import com.webapp.taskschedule.entity.MemberEntity;
 
 public interface MemberRegistrationMapper {
 	/**
 	 * 会員情報をDBにinsertする。
 	 */
-	public void insertMemberInfo(MemberRegistrationEntity entity);
+	public void insertMemberInfo(MemberEntity entity);
 }

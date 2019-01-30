@@ -86,7 +86,7 @@ public class TaskRegistrationController {
 				taskRegistrationForm.setIntRequiredHour(requiredHour);
 			}
 
-			Integer requiredMinute = convertStrToInt(taskRegistrationForm.getRequiredHour());
+			Integer requiredMinute = convertStrToInt(taskRegistrationForm.getRequiredMinute());
 
 			if (requiredMinute == null) {
 				errMsgs.add("分を数値で入力してください。");

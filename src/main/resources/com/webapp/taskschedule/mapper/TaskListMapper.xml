@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.webapp.taskschedule.mapper.TaskListMapper">
+    <select id="findAllTasks" parameterType="com.webapp.taskschedule.entity.TaskEntity"
+                              resultType="com.webapp.taskschedule.entity.TaskEntity">
+        SELECT
+           TITLE AS title,
+           DETAIL AS detail,
+           DEAD_LINE AS deadLine,
+           REQUIRED_HOUR AS requiredHour,
+           REQUIRED_MINUTE AS requiredMinute
+        FROM
+           TASK
+        WHERE
+           MEMBER_ID = #{memberId}
+    </select>
+
+</mapper>

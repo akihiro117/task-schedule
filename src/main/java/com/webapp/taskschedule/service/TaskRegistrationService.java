@@ -33,13 +33,15 @@ public class TaskRegistrationService {
 	public void registerTask(TaskRegistrationForm form) {
 
 		//SecurityContextHolderから認証情報を取得。
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Authentication authentication = SecurityContextHolder.getContext()
+				.getAuthentication();
 
 		String mailAddress = null;
 		if (authentication.getPrincipal() instanceof DbUserDetails) {
 			//認証済みの場合は、ユーザ情報を取得。
 			//認証済みでない場合は、匿名ユーザであることを示す文字列が返る。
-			DbUserDetails loginUserDetails = DbUserDetails.class.cast(authentication.getPrincipal());
+			DbUserDetails loginUserDetails = DbUserDetails.class
+					.cast(authentication.getPrincipal());
 			mailAddress = loginUserDetails.getAccount().getMailAddress();
 		}
 
@@ -50,8 +52,8 @@ public class TaskRegistrationService {
 
 		TaskEntity task = new TaskEntity();
 		task.setMemberId(memberId);
-		task.setTaskTitle(form.getTaskTitle());
-		task.setTaskDetail(form.getTaskDetail());
+		task.setTitle(form.getTaskTitle());
+		task.setDetail(form.getTaskDetail());
 		task.setDeadLine(form.getDeadLine());
 		task.setRequiredHour(form.getIntRequiredHour());
 		task.setRequiredMinute(form.getIntRequiredMinute());

@@ -1,37 +1,28 @@
-//TaskEntity.java
-//Created by Akihiro Yamada on 2019/1/11.
+//TaskListOutputdata.java
+//Created by Akihiro Yamada on 2019/1/30.
 //Copyright (c) 2018. All Rights Reserved.
 
-package com.webapp.taskschedule.entity;
+package com.webapp.taskschedule.outputdata;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Taskテーブルにinsertする項目を入れるクラス。
- */
-public class TaskEntity {
-
-	private int memberId;
-
+public class TaskListOutputData {
 	private String title;
 
 	private String detail;
 
-	//締め切り
+	//締め切り(DBから取得した値を保持する)
 	private Date deadLine;
 
-	//作業完了までの所要時間
+	//締め切り(出力する値を保持する)
+	private String strDeadLine;
+
+	//作業完了までの所要時間。
 	private Integer requiredHour;
 
+	//作業完了までの所要分。
 	private Integer requiredMinute;
-
-	public int getMemberId() {
-		return memberId;
-	}
-
-	public void setMemberId(int memberId) {
-		this.memberId = memberId;
-	}
 
 	public String getTitle() {
 		return title;
@@ -55,6 +46,16 @@ public class TaskEntity {
 
 	public void setDeadLine(Date deadLine) {
 		this.deadLine = deadLine;
+
+		//想定外の動作を避けるために、
+		//Date型のdeadLineを設定する段階で
+		//deadLineを指定した形式に変換してstrDeadLineに代入する。
+		//外部からのメンバ変数の操作を出来るだけ避ける。
+		this.strDeadLine = new SimpleDateFormat("yyyy/MM/dd").format(deadLine);
+	}
+
+	public String getStrDeadLine() {
+		return strDeadLine;
 	}
 
 	public Integer getRequiredHour() {

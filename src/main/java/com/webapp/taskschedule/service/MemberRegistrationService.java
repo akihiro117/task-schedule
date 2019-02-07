@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.webapp.taskschedule.entity.MemberRegistrationEntity;
+import com.webapp.taskschedule.entity.MemberEntity;
 import com.webapp.taskschedule.mapper.MemberRegistrationMapper;
 
 @Service
@@ -26,7 +26,7 @@ public class MemberRegistrationService {
 	/**
 	 * 会員情報をDBに登録。
 	 */
-	public void registerMember(MemberRegistrationEntity entity) {
+	public void registerMember(MemberEntity entity) {
 
 		entity.setPassword(passwordEncoder.encode(entity.getPassword()));
 

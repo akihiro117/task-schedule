@@ -8,12 +8,26 @@ Copyright (c) 2018. All Rights Reserved.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-<head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="css/common.css">
+
 <title>メインページ</title>
 </head>
 <body>
-メインページです。
+<a href="/logout">ログアウト</a>
+<h3 align="center">今日のタスク</h3>
+
+<ul class="side-menu">
+    <li>
+        <a href="/">Home</a>
+    </li>
+    <li>
+        <a href="/TaskList">タスク一覧</a>
+    </li>
+    <li>
+        <a href="/TaskRegistrationForm">タスク登録</a>
+    </li>
+</ul>
 
 </body>
 </html>

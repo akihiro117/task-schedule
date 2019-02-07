@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>新規タスク登録</title>
+</head>
+<body>
+
+<form action="/TaskRegistration" th:object="${taskRegistrationForm}" method="post">
+	<div th:if="${errMsgs != null}" align="center">
+	    <span th:each="errMsg : ${errMsgs}">
+	        <span th:text="${errMsg}"></span><br>
+	    </span>
+	</div>
+	<div th:if="${source == null or not source.equals('main')}" align="center">
+	    <span th:if="${#fields.hasErrors('taskTitle')}" th:errors="*{taskTitle}"></span><br>
+		<span th:if="${#fields.hasErrors('taskDetail')}" th:errors="*{taskDetail}"></span><br>
+		<span th:if="${#fields.hasErrors('deadLineYear') or #fields.hasErrors('deadLineMonth') or
+		             #fields.hasErrors('deadLineDay')}"
+		      th:text="締切日を入力してください。"></span><br>
+		<span th:if="${#fields.hasErrors('requiredHour') or #fields.hasErrors('requiredMinute')}"
+	          th:text="予定所要時間を入力してください。"></span><br>
+	</div>
+
+
+	<div align="center">
+
+	        <table>
+	           <tr>
+	                <td>
+	                    タイトル
+	                </td>
+	                <td>
+	                    <input type="text" th:field="*{taskTitle}">
+	                </td>
+	           </tr>
+	           <tr>
+	                <td valign="top">
+	                    詳細
+	                </td>
+	                <td>
+	                    <textarea th:field="*{taskDetail}"></textarea>
+	                </td>
+	           </tr>
+	           <tr>
+	                <td>
+	                    締切日
+	                </td>
+	                <td>
+	                    <input type="text" th:field="*{deadLineYear}">年
+	                    <input type="text" th:field="*{deadLineMonth}">月
+	                    <input type="text" th:field="*{deadLineDay}">日
+	                </td>
+	           </tr>
+	           <tr>
+	                <td>
+	                    予定所要時間
+	                </td>
+	                <td>
+	                    <input type="number" step="1" min="0" max="999" th:field="*{requiredHour}">時間
+	                    <input type="number" step="1" min="0" max="59" th:field="*{requiredMinute}">分
+	                </td>
+	           </tr>
+	           <tr>
+	                <td>
+	                </td>
+	                <td align="right">
+	                    <button type="submit">登録</button>
+	                </td>
+	           </tr>
+	        </table>
+	</div>
+</form>
+
+</body>
+</html>

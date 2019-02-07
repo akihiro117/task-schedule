@@ -2,7 +2,6 @@
 //Created by Akihiro Yamada on 2018/12/24.
 //Copyright (c) 2018. All Rights Reserved.
 
-
 package com.webapp.taskschedule.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,14 +39,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/MemberRegistrationConfirm").permitAll()
 				.antMatchers("/MemberRegistrationForm").permitAll()
 				.antMatchers("/MemberRegistrationResult").permitAll()
+				.antMatchers("/css/*").permitAll()
+				.antMatchers("TaskList", "TaskRegistrationForm").hasRole("USER")
 				.anyRequest().authenticated();
 		//http.csrf().ignoringAntMatchers("/MemberRegistrationConfirm");
+
+		//ログアウト機能を有効にし、
+		//全てのユーザにログアウトと
+		//ログアウト後のパスへのアクセス権を付与する。
+		http.logout()
+				.logoutSuccessUrl("/LogoutSuccess")
+				.permitAll();
 	}
 
 	@Autowired
-	void configureAuthenticationManager(AuthenticationManagerBuilder auth) throws Exception {
+	void configureAuthenticationManager(AuthenticationManagerBuilder auth)
+			throws Exception {
 		auth.userDetailsService(userDetailsService)
-			.passwordEncoder(passwordEncoder());
+				.passwordEncoder(passwordEncoder());
 	}
 
 	@Bean

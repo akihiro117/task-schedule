@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.webapp.taskschedule.entity.MemberRegistrationEntity;
+import com.webapp.taskschedule.entity.MemberEntity;
 import com.webapp.taskschedule.form.MemberRegistrationForm;
 import com.webapp.taskschedule.service.MemberRegistrationService;
 
@@ -57,12 +57,12 @@ public class MemberRegistrationController {
 
 		if (hasCorrelationErr) {
 			model.addAttribute("errMsg", "異なるパスワードが入力されています。");
-			return "RegistForm";
+			return "MemberRegistrationForm";
 		}
 
 		if (result.hasErrors()) {
 			//入力エラーがある場合。
-			return "RegistForm";
+			return "MemberRegistrationForm";
 		}
 
 		//確認画面への表示と登録を行うため、値をsessionにセット。
@@ -79,7 +79,7 @@ public class MemberRegistrationController {
 	@RequestMapping(value = "/MemberRegistrationResult", params = "regist")
 	public String registerMember(@ModelAttribute("form") MemberRegistrationForm form) {
 
-		MemberRegistrationEntity entity = new MemberRegistrationEntity();
+		MemberEntity entity = new MemberEntity();
 		entity.setEMail(form.geteMail());
 		entity.setPassword(form.getPassword());
 

@@ -18,3 +18,9 @@ a {
 	/*リンクの下線を消す。*/
 	text-decoration: none;
 }
+
+a:hover {
+    /*リンクの下線を消す。*/
+    text-decoration: none;
+    color: navy;
+}

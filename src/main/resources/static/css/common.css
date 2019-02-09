@@ -4,16 +4,6 @@ body {
     background-color: #EEFFFF;
 }
 
-.side-menu {
-	/*リストの黒丸を消す。*/
-	list-style-type: none;
-}
-
-.side-menu > li {
-    padding-top: 8px;
-    padding-bottom: 4px;
-}
-
 a {
 	/*リンクの下線を消す。*/
 	text-decoration: none;

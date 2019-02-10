@@ -34,7 +34,7 @@ Copyright (c) 2018. All Rights Reserved.
 
 <h3 align="center">Taskule</h3>
 
-<form action="/authenticate" method="POST">
+<form th:action="@{/authenticate}" method="POST">
     <div th:if="${errMsg != null}" align="center">
         <span th:text="${errMsg}"></span><br>
     </div>

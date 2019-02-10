@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<form action="/TaskRegistration" th:object="${taskRegistrationForm}" method="post">
+<form th:action="@{/TaskRegistration}" th:object="${taskRegistrationForm}" method="post">
 	<div th:if="${errMsgs != null}" align="center">
 	    <span th:each="errMsg : ${errMsgs}">
 	        <span th:text="${errMsg}"></span><br>

@@ -26,23 +26,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		//ログインページを指定。
 		//ログインページへのアクセスは全員許可する。
-		//TODO:csrf対策を有効にする。
-		http.csrf().disable().formLogin()
+		http.formLogin()
 				.loginPage("/login")
 				.loginProcessingUrl("/authenticate")
 				.usernameParameter("mailAddress")
 				.passwordParameter("password")
 				.defaultSuccessUrl("/")
 				.permitAll();
-		//TODO:csrf対策を有効にする。
-		http.csrf().disable().authorizeRequests()
+
+		http.authorizeRequests()
 				.antMatchers("/MemberRegistrationConfirm").permitAll()
 				.antMatchers("/MemberRegistrationForm").permitAll()
 				.antMatchers("/MemberRegistrationResult").permitAll()
 				.antMatchers("/css/*").permitAll()
 				.antMatchers("TaskList", "TaskRegistrationForm").hasRole("USER")
 				.anyRequest().authenticated();
-		//http.csrf().ignoringAntMatchers("/MemberRegistrationConfirm");
 
 		//ログアウト機能を有効にし、
 		//全てのユーザにログアウトと

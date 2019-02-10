@@ -43,8 +43,9 @@ public class TaskRegistrationController {
 	}
 
 	@RequestMapping("/TaskRegistration")
-	String registerTask(Model model, @Validated @ModelAttribute TaskRegistrationForm taskRegistrationForm,
-						BindingResult result) {
+	String registerTask(Model model,
+			@Validated @ModelAttribute TaskRegistrationForm taskRegistrationForm,
+			BindingResult result) {
 
 		boolean hasUserDefinedErr = false;
 
@@ -54,13 +55,12 @@ public class TaskRegistrationController {
 		String deadLineMonth = taskRegistrationForm.getDeadLineMonth();
 		String deadLineDay = taskRegistrationForm.getDeadLineDay();
 
-
 		if (!isNullOrEmpty(deadLineYear, deadLineMonth, deadLineDay)) {
 			//全てnullか空文字でなかった場合。
 
 			String strDate = taskRegistrationForm.getDeadLineYear() + "-" +
-							 taskRegistrationForm.getDeadLineMonth() + "-" +
-							 taskRegistrationForm.getDeadLineDay();
+					taskRegistrationForm.getDeadLineMonth() + "-" +
+					taskRegistrationForm.getDeadLineDay();
 
 			Date deadLine = converStrToDate(strDate, "yyyy-MM-dd");
 
@@ -76,7 +76,8 @@ public class TaskRegistrationController {
 
 		if (!isNullOrEmpty(deadLineYear, deadLineMonth, deadLineDay)) {
 
-			Integer requiredHour = convertStrToInt(taskRegistrationForm.getRequiredHour());
+			Integer requiredHour = convertStrToInt(
+					taskRegistrationForm.getRequiredHour());
 
 			if (requiredHour == null) {
 				errMsgs.add("時間を数値で入力してください。");
@@ -86,7 +87,8 @@ public class TaskRegistrationController {
 				taskRegistrationForm.setIntRequiredHour(requiredHour);
 			}
 
-			Integer requiredMinute = convertStrToInt(taskRegistrationForm.getRequiredMinute());
+			Integer requiredMinute = convertStrToInt(
+					taskRegistrationForm.getRequiredMinute());
 
 			if (requiredMinute == null) {
 				errMsgs.add("分を数値で入力してください。");
@@ -109,7 +111,7 @@ public class TaskRegistrationController {
 
 		taskRegistrationService.registerTask(taskRegistrationForm);
 
-		return "TaskList";
+		return "redirect:/TaskList";
 	}
 
 	Date converStrToDate(String str, String format) {

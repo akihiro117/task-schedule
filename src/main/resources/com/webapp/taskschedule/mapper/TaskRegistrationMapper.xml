@@ -13,8 +13,8 @@
                REQUIRED_MINUTE
            ) VALUES (
                #{memberId},
-               #{taskTitle},
-               #{taskDetail},
+               #{title},
+               #{detail},
                #{deadLine},
                #{requiredHour},
                #{requiredMinute}

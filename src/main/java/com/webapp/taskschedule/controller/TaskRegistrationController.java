@@ -51,56 +51,29 @@ public class TaskRegistrationController {
 
 		List<String> errMsgs = new ArrayList<String>();
 
-		String deadLineYear = taskRegistrationForm.getDeadLineYear();
-		String deadLineMonth = taskRegistrationForm.getDeadLineMonth();
-		String deadLineDay = taskRegistrationForm.getDeadLineDay();
+		Integer requiredHour = convertStrToInt(
+				taskRegistrationForm.getRequiredHour());
 
-		if (!isNullOrEmpty(deadLineYear, deadLineMonth, deadLineDay)) {
-			//全てnullか空文字でなかった場合。
+		if (requiredHour == null) {
+			errMsgs.add("時間を数値で入力してください。");
 
-			String strDate = taskRegistrationForm.getDeadLineYear() + "-" +
-					taskRegistrationForm.getDeadLineMonth() + "-" +
-					taskRegistrationForm.getDeadLineDay();
-
-			Date deadLine = converStrToDate(strDate, "yyyy-MM-dd");
-
-			if (deadLine == null) {
-				errMsgs.add("正しい日付を入力してください。");
-				hasUserDefinedErr = true;
-
-			} else {
-				taskRegistrationForm.setDeadLine(deadLine);
-			}
-
+			hasUserDefinedErr = true;
+		} else {
+			taskRegistrationForm.setIntRequiredHour(requiredHour);
 		}
 
-		if (!isNullOrEmpty(deadLineYear, deadLineMonth, deadLineDay)) {
+		Integer requiredMinute = convertStrToInt(
+				taskRegistrationForm.getRequiredMinute());
 
-			Integer requiredHour = convertStrToInt(
-					taskRegistrationForm.getRequiredHour());
+		if (requiredMinute == null) {
+			errMsgs.add("分を数値で入力してください。");
 
-			if (requiredHour == null) {
-				errMsgs.add("時間を数値で入力してください。");
-
-				hasUserDefinedErr = true;
-			} else {
-				taskRegistrationForm.setIntRequiredHour(requiredHour);
-			}
-
-			Integer requiredMinute = convertStrToInt(
-					taskRegistrationForm.getRequiredMinute());
-
-			if (requiredMinute == null) {
-				errMsgs.add("分を数値で入力してください。");
-
-				hasUserDefinedErr = true;
-			} else if (requiredMinute >= 60 || requiredMinute < 0) {
-				errMsgs.add("正しい分を入力してください。");
-				hasUserDefinedErr = true;
-			} else {
-				taskRegistrationForm.setIntRequiredMinute(requiredMinute);
-			}
-
+			hasUserDefinedErr = true;
+		} else if (requiredMinute >= 60 || requiredMinute < 0) {
+			errMsgs.add("正しい分を入力してください。");
+			hasUserDefinedErr = true;
+		} else {
+			taskRegistrationForm.setIntRequiredMinute(requiredMinute);
 		}
 
 		if (hasUserDefinedErr || result.hasErrors()) {

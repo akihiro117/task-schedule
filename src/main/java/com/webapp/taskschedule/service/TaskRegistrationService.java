@@ -16,6 +16,7 @@ import com.webapp.taskschedule.entity.TaskEntity;
 import com.webapp.taskschedule.form.TaskRegistrationForm;
 import com.webapp.taskschedule.mapper.CommonMapper;
 import com.webapp.taskschedule.mapper.TaskRegistrationMapper;
+import com.webapp.taskschedule.utility.DateUtility;
 
 @Service
 @Transactional
@@ -54,7 +55,11 @@ public class TaskRegistrationService {
 		task.setMemberId(memberId);
 		task.setTitle(form.getTaskTitle());
 		task.setDetail(form.getTaskDetail());
-		task.setDeadLine(form.getDeadLine());
+
+		//フォームから取得したString型の日付("yyyyMMdd")をsql.Date型に変換して
+		//entityに設定する。
+		task.setDeadLine(
+				DateUtility.parse(form.getStrDeadLine(), "yyyy/MM/dd"));
 		task.setRequiredHour(form.getIntRequiredHour());
 		task.setRequiredMinute(form.getIntRequiredMinute());
 

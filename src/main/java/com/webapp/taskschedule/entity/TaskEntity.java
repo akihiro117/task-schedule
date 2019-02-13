@@ -4,7 +4,7 @@
 
 package com.webapp.taskschedule.entity;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * Taskテーブルにinsertする項目を入れるクラス。

@@ -67,11 +67,11 @@
 		             #fields.hasErrors('deadLineDay')}"
 		      th:text="締切日を入力してください。"></span><br>
 		<span th:if="${#fields.hasErrors('requiredHour') or #fields.hasErrors('requiredMinute')}"
-	          th:text="予定所要時間を入力してください。"></span><br>
-	</div>
+              th:text="予定所要時間を入力してください。"></span><br>
+    </div>
 
-	<div class="container">
-	   <div class="row">
+    <div class="container">
+       <div class="row">
            <div class="col"></div>
            <div class="col align-self-center">
                <div class="form-group">
@@ -89,10 +89,10 @@
                <div class="form-group">
                    <label for="requiredHour">予定所要時間</label>
                    <div class="input-group">
-	                   <input class="form-control" type="number" step="1" min="0" max="999" th:field="*{requiredHour}">
-	                   <span class="input-group-addon">時間</span>
-	                   <input type="number" step="1" min="0" max="59" th:field="*{requiredMinute}">
-	                   <span class="input-group-addon">分</span>
+                       <input class="form-control" type="number" step="1" min="0" max="999" th:field="*{requiredHour}">
+                       <span class="input-group-addon">時間</span>
+                       <input type="number" step="1" min="0" max="59" th:field="*{requiredMinute}">
+                       <span class="input-group-addon">分</span>
                    </div>
                </div>
                <div>

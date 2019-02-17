@@ -9,53 +9,62 @@ Copyright (c) 2018. All Rights Reserved.
       xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+
+<link rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+      crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="/css/common.css">
+
 <title>会員登録</title>
 </head>
 <body>
 
+<h2 align="center"><b>新規会員登録</b></h2>
 
 <form th:action="@{/MemberRegistrationConfirm}" th:object="${memberRegistrationForm}" method="POST">
-<div th:if="${source == null or (not source.equals('login') and not source.equals('revise'))}" align="center">
-<span th:if="${#fields.hasErrors('eMail')}" th:errors="*{eMail}"></span><br>
-<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span><br>
-<span th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></span><br>
-</div>
+    <div th:if="${source == null or (not source.equals('login') and not source.equals('revise'))}" align="center">
+        <span th:if="${#fields.hasErrors('eMail')}" th:errors="*{eMail}"></span><br>
+        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span><br>
+        <span th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></span><br>
+    </div>
 
-<table align="center">
-    <tr>
-        <td>
-                メールアドレス：
-        </td>
-        <td>
-                <input type="text" th:field="*{eMail}">
-        </td>
-    </tr>
-    <tr>
-        <td>
-                パスワード：
-        </td>
-        <td>
-                <input type="password" th:field="*{password}">
-        </td>
-    <tr>
-        <td valign="top">
-                パスワード(確認用)：
-        </td>
-        <td>
-                <span th:if="${errMsg != null}" th:text="${errMsg}"></span>
-                <br th:if="${errMsg != null}">
-                <input type="password" th:field="*{passwordConfirm}">
-        </td>
-    </tr>
-    <tr>
-        <td>
-        </td>
-        <td align="right">
-            <button type="submit">確認</button>
-        </td>
-    </tr>
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col align-self-center login">
+                <div class="form-group">
+                    <label for="eMail">メールアドレス</label>
+                    <input type="text" class="form-control" th:field="*{eMail}" placeholder="メールアドレス"/>
+                </div>
+                <div class="form-group">
+                    <label for="password">パスワード</label>
+                    <input type="password" class="form-control" th:field="*{password}" placeholder="パスワード"/>
+                </div>
+                <div class="form-group">
+                    <label for="passwordConfirm">パスワード(確認用)</label>
+                    <input type="password" class="form-control" th:field="*{passwordConfirm}" placeholder="パスワード"/>
+                    <span th:if="${errMsg != null}" th:text="${errMsg}"></span>
+                    <br th:if="${errMsg != null}">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">確認</button>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
 
-</table>
 </form>
 
 </body>

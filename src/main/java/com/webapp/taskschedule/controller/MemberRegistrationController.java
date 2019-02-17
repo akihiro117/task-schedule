@@ -48,12 +48,13 @@ public class MemberRegistrationController {
 	 * @return 会員情報登録確認画面。
 	 */
 	@RequestMapping("/MemberRegistrationConfirm")
-	public String showRegistrationConfirm(@Validated @ModelAttribute MemberRegistrationForm memberRegistrationForm,
+	public String showRegistrationConfirm(
+			@Validated @ModelAttribute MemberRegistrationForm memberRegistrationForm,
 			BindingResult result, Model model) {
 
 		//相関項目エラーの有無。
-		boolean hasCorrelationErr =
-				!memberRegistrationForm.getPassword().equals(memberRegistrationForm.getPasswordConfirm());
+		boolean hasCorrelationErr = !memberRegistrationForm.getPassword()
+				.equals(memberRegistrationForm.getPasswordConfirm());
 
 		if (hasCorrelationErr) {
 			model.addAttribute("errMsg", "異なるパスワードが入力されています。");
@@ -77,7 +78,8 @@ public class MemberRegistrationController {
 	 * @return 会員登録の結果画面。
 	**/
 	@RequestMapping(value = "/MemberRegistrationResult", params = "regist")
-	public String registerMember(@ModelAttribute("form") MemberRegistrationForm form) {
+	public String registerMember(
+			@ModelAttribute("form") MemberRegistrationForm form) {
 
 		MemberEntity entity = new MemberEntity();
 		entity.setEMail(form.geteMail());
@@ -89,7 +91,9 @@ public class MemberRegistrationController {
 	}
 
 	@RequestMapping(value = "/MemberRegistrationResult", params = "revise")
-	public String returnRegistrationForm(@ModelAttribute("form") MemberRegistrationForm memberRegistrationForm, Model model) {
+	public String returnRegistrationForm(
+			@ModelAttribute("form") MemberRegistrationForm memberRegistrationForm,
+			Model model) {
 		model.addAttribute("source", "revise");
 
 		memberRegistrationForm.setPassword("");
@@ -98,7 +102,7 @@ public class MemberRegistrationController {
 		//attributeにformを追加する。
 		model.addAttribute(memberRegistrationForm);
 
-		return "RegistrationForm";
+		return "MemberRegistrationForm";
 	}
 
 }

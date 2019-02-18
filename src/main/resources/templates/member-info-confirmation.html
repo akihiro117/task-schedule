@@ -1,0 +1,67 @@
+<!--
+member-info-confirmation.html
+Created by Akihiro Yamada on 2019/2/17.
+Copyright (c) 2018. All Rights Reserved.
+-->
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<link rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+      crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="/css/common.css">
+
+<title>登録情報確認</title>
+</head>
+<body>
+
+<h4 align="center">登録情報</h4>
+
+<div class="container">
+    <div class="row">
+        <div class="col"></div>
+            <div class="col5 align-self-center">
+                <div class="table-responsive">
+                    <table class="table bg-white">
+                        <tr>
+                            <td>
+                               メールアドレス
+                            </td>
+                            <td>
+                               <span th:text="${mailAddress}"></span><br>
+                               <a href="/mail-modification-form">メールアドレスを変更</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                               パスワード
+                            </td>
+                            <td>
+                               <a href="/password-modificatin-form">パスワードを変更</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        <div class="col"></div>
+    </div>
+</div>
+
+
+</body>
+</html>

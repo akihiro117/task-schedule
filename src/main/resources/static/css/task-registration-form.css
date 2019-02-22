@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+/*input-group-addonで囲まれた文字列を
+縦の中央揃えにするためのクラス。*/
+.input-group-char {
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+
+.form-area {
+	background-color: white;
+}

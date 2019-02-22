@@ -4,8 +4,6 @@
 <head>
 <meta charset="UTF-8">
 
-
-
 <link rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
       integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
@@ -26,10 +24,11 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/task-registration-form.css">
 
 <script>
   $( function() {
-    $( "#strDeadLine" ).datepicker({
+    $( ".date" ).datepicker({
     	dateFormat: "yy/mm/dd"
     });
   } );
@@ -49,7 +48,7 @@
         <nav class="nav nav-pills">
             <a class="nav-link" href="/">Home</a>
             <a class="nav-link" href="/TaskList">タスク一覧</a>
-            <a class="nav-link active" href="/TaskRegistrationForm">タスク登録</a>
+            <a class="nav-link active" href="/task-registration-form">タスク登録</a>
         </nav>
     </div>
 </div>
@@ -73,7 +72,7 @@
     <div class="container">
        <div class="row">
            <div class="col"></div>
-           <div class="col align-self-center">
+           <div class="col align-self-center form-area rounded shadow-sm">
                <div class="form-group">
                    <label for="taskTitle">タイトル</label>
                    <input type="text" class="form-control" th:field="*{taskTitle}" placeholder="タイトル"/>
@@ -84,15 +83,29 @@
                </div>
                <div class="form-group">
                    <label for="strDeadLine">締切日</label>
-                   <input class="form-control" type="text" th:field="*{strDeadLine}" id="strDeadLine" readonly>
+                   <input class="form-control date" type="text" th:field="*{strDeadLine}" readonly>
                </div>
                <div class="form-group">
                    <label for="requiredHour">予定所要時間</label>
                    <div class="input-group">
                        <input class="form-control" type="number" step="1" min="0" max="999" th:field="*{requiredHour}">
-                       <span class="input-group-addon">時間</span>
-                       <input type="number" step="1" min="0" max="59" th:field="*{requiredMinute}">
-                       <span class="input-group-addon">分</span>
+                       <span class="input-group-addon input-group-char">&nbsp;時間&nbsp;</span>
+                       <input class="form-control" type="number" step="1" min="0" max="59" th:field="*{requiredMinute}">
+                       <span class="input-group-addon input-group-char">&nbsp;分&nbsp;</span>
+                   </div>
+               </div>
+               <div class="form-group">
+                   <label for="strScheduleStartDate">予定作業日時</label>
+                   <div class="input-group">
+                      <input class="form-control date" type="text" th:field="*{strScheduleStartDate}" readonly>
+                      <span class="input-group-addon">&nbsp;&nbsp;</span>
+                      <input class="form-control" type="time" th:field="*{strScheduleStartTime}">
+                      <span class="input-group-addon input-group-char">〜</span>
+                      <input class="form-control" type="time" th:field="*{strScheduleEndTime}">
+                      <span class="input-group-addon">&nbsp;&nbsp;</span>
+                      <span class="input-group-btn">
+                         <button type="button" class="btn btn-success btn-block">＋</button>
+                      </span>
                    </div>
                </div>
                <div>

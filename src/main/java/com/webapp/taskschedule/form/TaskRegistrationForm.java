@@ -8,81 +8,114 @@ import javax.validation.constraints.NotBlank;
 
 public class TaskRegistrationForm {
 
-	@NotBlank(message = "タイトルを入力してください。")
-	private String taskTitle;
+    @NotBlank(message = "タイトルを入力してください。")
+    private String taskTitle;
 
-	@NotBlank(message = "タスクの詳細を入力してください。")
-	private String taskDetail;
+    @NotBlank(message = "タスクの詳細を入力してください。")
+    private String taskDetail;
 
-	//締切年月日
-	@NotBlank(message = "締切日を入力してください。")
-	private String strDeadLine;
+    //締切年月日
+    @NotBlank(message = "締切日を入力してください。")
+    private String strDeadLine;
 
-	//作業完了までの所要時間
-	@NotBlank(message = "所要時間を入力してください。")
-	private String requiredHour;
+    //作業完了までの所要時間
+    @NotBlank(message = "所要時間を入力してください。")
+    private String requiredHour;
 
-	@NotBlank(message = "所要時間を入力してください。")
-	private String requiredMinute;
+    @NotBlank(message = "所要時間を入力してください。")
+    private String requiredMinute;
 
-	private int intRequiredHour;
+    private int intRequiredHour;
 
-	private int intRequiredMinute;
+    private int intRequiredMinute;
 
-	public String getTaskTitle() {
-		return taskTitle;
-	}
+    //タスクの作業予定日。
+    private String strScheduleStartDate;
 
-	public void setTaskTitle(String taskTitle) {
-		this.taskTitle = taskTitle;
-	}
+    //タスクの作業予定開始時刻。
+    private String strScheduleStartTime;
 
-	public String getTaskDetail() {
-		return taskDetail;
-	}
+    //タスクの作業予定終了時刻。
+    private String strScheduleEndTime;
 
-	public void setTaskDetail(String taskDetail) {
-		this.taskDetail = taskDetail;
-	}
+    public String getTaskTitle() {
+        return taskTitle;
+    }
 
-	public String getStrDeadLine() {
-		return strDeadLine;
-	}
+    public void setTaskTitle(String taskTitle) {
+        this.taskTitle = taskTitle;
+    }
 
-	public void setStrDeadLine(String strDeadLine) {
-		this.strDeadLine = strDeadLine;
-	}
+    public String getTaskDetail() {
+        return taskDetail;
+    }
 
-	public String getRequiredHour() {
-		return requiredHour;
-	}
+    public void setTaskDetail(String taskDetail) {
+        this.taskDetail = taskDetail;
+    }
 
-	public void setRequiredHour(String requiredHour) {
-		this.requiredHour = requiredHour;
-	}
+    public String getStrDeadLine() {
+        return strDeadLine;
+    }
 
-	public String getRequiredMinute() {
-		return requiredMinute;
-	}
+    public void setStrDeadLine(String strDeadLine) {
+        this.strDeadLine = strDeadLine;
+    }
 
-	public void setRequiredMinute(String requiredMinute) {
-		this.requiredMinute = requiredMinute;
-	}
+    public String getRequiredHour() {
+        return requiredHour;
+    }
 
-	public int getIntRequiredHour() {
-		return intRequiredHour;
-	}
+    public void setRequiredHour(String requiredHour) {
+        this.requiredHour = requiredHour;
+    }
 
-	public void setIntRequiredHour(int intRequiredHour) {
-		this.intRequiredHour = intRequiredHour;
-	}
+    public String getRequiredMinute() {
+        return requiredMinute;
+    }
 
-	public int getIntRequiredMinute() {
-		return intRequiredMinute;
-	}
+    public void setRequiredMinute(String requiredMinute) {
+        this.requiredMinute = requiredMinute;
+    }
 
-	public void setIntRequiredMinute(int intRequiredMinute) {
-		this.intRequiredMinute = intRequiredMinute;
-	}
+    public int getIntRequiredHour() {
+        return intRequiredHour;
+    }
+
+    public void setIntRequiredHour(int intRequiredHour) {
+        this.intRequiredHour = intRequiredHour;
+    }
+
+    public int getIntRequiredMinute() {
+        return intRequiredMinute;
+    }
+
+    public void setIntRequiredMinute(int intRequiredMinute) {
+        this.intRequiredMinute = intRequiredMinute;
+    }
+
+    public String getStrScheduleStartDate() {
+        return strScheduleStartDate;
+    }
+
+    public void setStrScheduleStartDate(String strScheduleStartDate) {
+        this.strScheduleStartDate = strScheduleStartDate;
+    }
+
+    public String getStrScheduleStartTime() {
+        return strScheduleStartTime;
+    }
+
+    public void setStrScheduleStartTime(String strScheduleStartTime) {
+        this.strScheduleStartTime = strScheduleStartTime;
+    }
+
+    public String getStrScheduleEndTime() {
+        return strScheduleEndTime;
+    }
+
+    public void setStrScheduleEndTime(String strScheduleEndTime) {
+        this.strScheduleEndTime = strScheduleEndTime;
+    }
 
 }

@@ -30,7 +30,7 @@ Copyright (c) 2018. All Rights Reserved.
 </head>
 <body>
 
-<h2 align="center"><b>新規会員登録</b></h2>
+<h3 align="center">新規会員登録</h3>
 
 <form th:action="@{/MemberRegistrationConfirm}" th:object="${memberRegistrationForm}" method="POST">
     <div th:if="${source == null or (not source.equals('login') and not source.equals('revise'))}" align="center">

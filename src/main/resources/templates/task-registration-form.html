@@ -26,12 +26,15 @@
 <link rel="stylesheet" href="/css/common.css">
 <link rel="stylesheet" href="/css/task-registration-form.css">
 
+<script src="/js/task-registration-form.js"></script>
+
 <script>
   $( function() {
     $( ".date" ).datepicker({
     	dateFormat: "yy/mm/dd"
     });
   } );
+
 </script>
 
 <title>新規タスク登録</title>
@@ -94,18 +97,20 @@
                        <span class="input-group-addon input-group-char">&nbsp;分&nbsp;</span>
                    </div>
                </div>
-               <div class="form-group">
-                   <label for="strScheduleStartDate">予定作業日時</label>
+               <div class="form-group" id="schedule-form">
+                   <label for="strScheduleStartDate" class="addBtn">
+                       予定作業日時
+                       <span class="addBtn">
+                         <button type="button" class="btn btn-success h-100" id="add-form">日時追加</button>
+                       </span>
+                   </label>
+
                    <div class="input-group">
                       <input class="form-control date" type="text" th:field="*{strScheduleStartDate}" readonly>
                       <span class="input-group-addon">&nbsp;&nbsp;</span>
                       <input class="form-control" type="time" th:field="*{strScheduleStartTime}">
-                      <span class="input-group-addon input-group-char">〜</span>
+                      <span class="input-group-addon input-group-char">&nbsp;〜&nbsp;</span>
                       <input class="form-control" type="time" th:field="*{strScheduleEndTime}">
-                      <span class="input-group-addon">&nbsp;&nbsp;</span>
-                      <span class="input-group-btn">
-                         <button type="button" class="btn btn-success btn-block">＋</button>
-                      </span>
                    </div>
                </div>
                <div>
@@ -113,11 +118,15 @@
                </div>
            </div>
            <div class="col"></div>
-	   </div>
+       </div>
 
-	</div>
+    </div>
 
 </form>
+
+<script>
+    addScheduleForm();
+</script>
 
 </body>
 </html>

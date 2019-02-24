@@ -8,5 +8,9 @@
 }
 
 .form-area {
-	background-color: white;
+    background-color: white;
+}
+
+.addBtn {
+    display: inline;
 }

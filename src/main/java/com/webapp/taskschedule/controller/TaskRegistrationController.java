@@ -51,6 +51,7 @@ public class TaskRegistrationController {
 
         List<String> errMsgs = new ArrayList<String>();
 
+        //作業所要時間(時)
         Integer requiredHour = convertStrToInt(
                 taskRegistrationForm.getRequiredHour());
 
@@ -62,6 +63,7 @@ public class TaskRegistrationController {
             taskRegistrationForm.setIntRequiredHour(requiredHour);
         }
 
+        //作業所要時間(分)
         Integer requiredMinute = convertStrToInt(
                 taskRegistrationForm.getRequiredMinute());
 

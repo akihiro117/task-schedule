@@ -30,13 +30,13 @@ public class TaskRegistrationForm {
     private int intRequiredMinute;
 
     //タスクの作業予定日。
-    private String strScheduleStartDate;
+    private String[] strScheduleStartDate;
 
     //タスクの作業予定開始時刻。
-    private String strScheduleStartTime;
+    private String[] strScheduleStartTime;
 
     //タスクの作業予定終了時刻。
-    private String strScheduleEndTime;
+    private String[] strScheduleEndTime;
 
     public String getTaskTitle() {
         return taskTitle;
@@ -94,27 +94,27 @@ public class TaskRegistrationForm {
         this.intRequiredMinute = intRequiredMinute;
     }
 
-    public String getStrScheduleStartDate() {
+    public String[] getStrScheduleStartDate() {
         return strScheduleStartDate;
     }
 
-    public void setStrScheduleStartDate(String strScheduleStartDate) {
+    public void setStrScheduleStartDate(String[] strScheduleStartDate) {
         this.strScheduleStartDate = strScheduleStartDate;
     }
 
-    public String getStrScheduleStartTime() {
+    public String[] getStrScheduleStartTime() {
         return strScheduleStartTime;
     }
 
-    public void setStrScheduleStartTime(String strScheduleStartTime) {
+    public void setStrScheduleStartTime(String[] strScheduleStartTime) {
         this.strScheduleStartTime = strScheduleStartTime;
     }
 
-    public String getStrScheduleEndTime() {
+    public String[] getStrScheduleEndTime() {
         return strScheduleEndTime;
     }
 
-    public void setStrScheduleEndTime(String strScheduleEndTime) {
+    public void setStrScheduleEndTime(String[] strScheduleEndTime) {
         this.strScheduleEndTime = strScheduleEndTime;
     }
 

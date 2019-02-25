@@ -7,15 +7,19 @@ package com.webapp.taskschedule.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * ログアウト後の画面遷移を提供するクラス。
+ *
+ */
 @Controller
 public class LogoutController {
 
-	/**
-	 * ログアウト成功画面に遷移する。
-	 */
-	@RequestMapping("/LogoutSuccess")
-	public String showLogoutSuccessPage() {
+    /**
+     * ログアウト成功画面に遷移する。
+     */
+    @RequestMapping("/logout-success")
+    public String showLogoutSuccessPage() {
 
-		return "LogoutSuccess";
-	}
+        return "logout-success";
+    }
 }

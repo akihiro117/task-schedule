@@ -17,92 +17,101 @@ import com.webapp.taskschedule.entity.MemberEntity;
 import com.webapp.taskschedule.form.MemberRegistrationForm;
 import com.webapp.taskschedule.service.MemberRegistrationService;
 
+/**
+ * 会員登録機能を提供するクラス。
+ *
+ */
 @Controller
 @SessionAttributes(value = "form")
 public class MemberRegistrationController {
 
-	@Autowired
-	private MemberRegistrationService memberRegistrationService;
+    //メンバー登録フォーム。
+    private static String MEMBER_REGISTRATION_FORM = "member-registration-form";
+    //確認画面。
+    private static String MEMBER_REGISTRATION_CONFIRM = "member-registration-confirm";
 
-	/**
-	 * 会員情報入力画面を表示。
-	 * @return 会員情報入力画面。
-	 */
-	@RequestMapping("/MemberRegistrationForm")
-	public String showMemberRegistrationForm(Model model) {
+    @Autowired
+    private MemberRegistrationService memberRegistrationService;
 
-		model.addAttribute("source", "login");
+    /**
+     * 会員情報入力画面を表示。
+     * @return 会員情報入力画面。
+     */
+    @RequestMapping("/member-registration-form")
+    public String showMemberRegistrationForm(Model model) {
 
-		//これを書いていないことが原因だった
-		model.addAttribute(new MemberRegistrationForm());
+        model.addAttribute("source", "login");
 
-		//会員情報入力画面に遷移。
-		return "MemberRegistrationForm";
-	}
+        //これを書いていないことが原因だった
+        model.addAttribute(new MemberRegistrationForm());
 
-	/**
-	 * 会員情報登録の確認画面を表示。
-	 * 会員情報の入力チェックを行う。
-	 * @param memberForm 入力された会員情報。
-	 * @param model sessionを渡すために使用するModelオブジェクト。
-	 * @return 会員情報登録確認画面。
-	 */
-	@RequestMapping("/MemberRegistrationConfirm")
-	public String showRegistrationConfirm(
-			@Validated @ModelAttribute MemberRegistrationForm memberRegistrationForm,
-			BindingResult result, Model model) {
+        //会員情報入力画面に遷移。
+        return MEMBER_REGISTRATION_FORM;
+    }
 
-		//相関項目エラーの有無。
-		boolean hasCorrelationErr = !memberRegistrationForm.getPassword()
-				.equals(memberRegistrationForm.getPasswordConfirm());
+    /**
+     * 会員情報登録の確認画面を表示。
+     * 会員情報の入力チェックを行う。
+     * @param memberForm 入力された会員情報。
+     * @param model sessionを渡すために使用するModelオブジェクト。
+     * @return 会員情報登録確認画面。
+     */
+    @RequestMapping("/member-registration-confirm")
+    public String showRegistrationConfirm(
+            @Validated @ModelAttribute MemberRegistrationForm memberRegistrationForm,
+            BindingResult result, Model model) {
 
-		if (hasCorrelationErr) {
-			model.addAttribute("errMsg", "異なるパスワードが入力されています。");
-			return "MemberRegistrationForm";
-		}
+        //パスワードの相関項目エラーの有無。
+        boolean hasCorrelationErr = !memberRegistrationForm.getPassword()
+                .equals(memberRegistrationForm.getPasswordConfirm());
 
-		if (result.hasErrors()) {
-			//入力エラーがある場合。
-			return "MemberRegistrationForm";
-		}
+        if (hasCorrelationErr) {
+            model.addAttribute("errMsg", "異なるパスワードが入力されています。");
+            return MEMBER_REGISTRATION_FORM;
+        }
 
-		//確認画面への表示と登録を行うため、値をsessionにセット。
-		model.addAttribute("form", memberRegistrationForm);
+        if (result.hasErrors()) {
+            //単項目の入力エラーがある場合。
+            return MEMBER_REGISTRATION_FORM;
+        }
 
-		//会員情報登録確認画面。
-		return "MemberRegistrationConfirm";
-	}
+        //確認画面への表示と登録を行うため、値をsessionにセット。
+        model.addAttribute("form", memberRegistrationForm);
 
-	/**
-	 * 入力された会員情報をDBに登録。
-	 * @return 会員登録の結果画面。
-	**/
-	@RequestMapping(value = "/MemberRegistrationResult", params = "regist")
-	public String registerMember(
-			@ModelAttribute("form") MemberRegistrationForm form) {
+        //会員情報登録確認画面。
+        return MEMBER_REGISTRATION_CONFIRM;
+    }
 
-		MemberEntity entity = new MemberEntity();
-		entity.setEMail(form.geteMail());
-		entity.setPassword(form.getPassword());
+    /**
+     * 入力された会員情報をDBに登録。
+     * @return 会員登録の結果画面。
+    **/
+    @RequestMapping(value = "/member-registration-result", params = "regist")
+    public String registerMember(
+            @ModelAttribute("form") MemberRegistrationForm form) {
 
-		memberRegistrationService.registerMember(entity);
-		//会員登録の結果画面。
-		return "MemberRegistrationResult";
-	}
+        MemberEntity entity = new MemberEntity();
+        entity.setEMail(form.geteMail());
+        entity.setPassword(form.getPassword());
 
-	@RequestMapping(value = "/MemberRegistrationResult", params = "revise")
-	public String returnRegistrationForm(
-			@ModelAttribute("form") MemberRegistrationForm memberRegistrationForm,
-			Model model) {
-		model.addAttribute("source", "revise");
+        memberRegistrationService.registerMember(entity);
+        //会員登録の結果画面。
+        return "member-registration-result";
+    }
 
-		memberRegistrationForm.setPassword("");
+    @RequestMapping(value = "/member-registration-result", params = "revise")
+    public String returnRegistrationForm(
+            @ModelAttribute("form") MemberRegistrationForm memberRegistrationForm,
+            Model model) {
+        model.addAttribute("source", "revise");
 
-		//入力した値を登録フォームに表示したままにするために、
-		//attributeにformを追加する。
-		model.addAttribute(memberRegistrationForm);
+        memberRegistrationForm.setPassword("");
 
-		return "MemberRegistrationForm";
-	}
+        //入力した値を登録フォームに表示したままにするために、
+        //attributeにformを追加する。
+        model.addAttribute(memberRegistrationForm);
+
+        return MEMBER_REGISTRATION_FORM;
+    }
 
 }

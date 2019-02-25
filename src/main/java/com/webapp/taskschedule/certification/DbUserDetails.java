@@ -9,21 +9,25 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
+/**
+ * ログイン認証や認可の際に使用するユーザ情報を格納するクラス。
+ *
+ */
 public class DbUserDetails extends User {
-	//ユーザ情報。
-	private final Account account;
+    //ユーザ情報。
+    private final Account account;
 
-	public DbUserDetails(Account account,
-			Collection<GrantedAuthority> authorities) {
+    public DbUserDetails(Account account,
+            Collection<GrantedAuthority> authorities) {
 
-		super(account.getMailAddress(), account.getPassword(),
-				true, true, true, true, authorities);
+        super(account.getMailAddress(), account.getPassword(),
+                true, true, true, true, authorities);
 
-		this.account = account;
-	}
+        this.account = account;
+    }
 
-	public Account getAccount() {
-		return account;
-	}
+    public Account getAccount() {
+        return account;
+    }
 
 }

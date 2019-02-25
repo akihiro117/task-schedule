@@ -42,6 +42,7 @@ function addScheduleForm() {
         clone.childNodes[5].value = "";
         clone.childNodes[9].value = "";
 
+        //新IDを作成。
         var newId = "date" + idCount;
         clone.childNodes[1].id = newId;
 

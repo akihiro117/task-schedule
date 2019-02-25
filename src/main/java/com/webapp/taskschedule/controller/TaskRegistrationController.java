@@ -25,7 +25,6 @@ import com.webapp.taskschedule.service.TaskRegistrationService;
 /**
  * タスク登録機能を提供するコントローラークラス。
  */
-
 @Controller
 public class TaskRegistrationController {
 
@@ -42,7 +41,7 @@ public class TaskRegistrationController {
         return "task-registration-form";
     }
 
-    @RequestMapping("/TaskRegistration")
+    @RequestMapping("/task-registration")
     String registerTask(Model model,
             @Validated @ModelAttribute TaskRegistrationForm taskRegistrationForm,
             BindingResult result) {
@@ -60,7 +59,9 @@ public class TaskRegistrationController {
 
             hasUserDefinedErr = true;
         } else {
-            taskRegistrationForm.setIntRequiredHour(requiredHour);
+            //アンボクシングを避けるためにintValue()で明示的に変換する。
+            taskRegistrationForm
+                    .setIntRequiredHour(requiredHour.intValue());
         }
 
         //作業所要時間(分)
@@ -71,11 +72,13 @@ public class TaskRegistrationController {
             errMsgs.add("分を数値で入力してください。");
 
             hasUserDefinedErr = true;
-        } else if (requiredMinute >= 60 || requiredMinute < 0) {
+        } else if (requiredMinute.intValue() >= 60
+                || requiredMinute.intValue() < 0) {
             errMsgs.add("正しい分を入力してください。");
             hasUserDefinedErr = true;
         } else {
-            taskRegistrationForm.setIntRequiredMinute(requiredMinute);
+            taskRegistrationForm
+                    .setIntRequiredMinute(requiredMinute.intValue());
         }
 
         if (hasUserDefinedErr || result.hasErrors()) {
@@ -86,35 +89,52 @@ public class TaskRegistrationController {
 
         taskRegistrationService.registerTask(taskRegistrationForm);
 
-        return "redirect:/TaskList";
+        return "redirect:/task-list";
     }
 
+    /**
+     * 第二引数のフォーマットのString型の日付を
+     * Date型に変換する。
+     * @param str 変換対象の日付。
+     * @param format 変換対象のフォーマット。
+     * @return 変換対象の日付が日付の形式の場合は、Date型の日付。
+     * 日付の形式でない場合はnullを返す。
+     */
     Date converStrToDate(String str, String format) {
         DateFormat dateFormat = new SimpleDateFormat(format);
 
         try {
+            //厳密モードを設定。
             dateFormat.setLenient(false);
 
             return dateFormat.parse(str);
-
         } catch (ParseException e) {
+            //日付の形式でない場合はnullを返す。
             return null;
         }
-
     }
 
+    /**
+     * String型をint型に変換する。
+     * @param str 変換対象。
+     * @return 変換できる場合、数値。
+     * 変換できない場合、null。
+     */
     Integer convertStrToInt(String str) {
         try {
-            return Integer.parseInt(str);
+            //intからIntegerへのオートボクシングを避けるため、
+            //parseInt()でなくvalueOf()を使用する。
+            return Integer.valueOf(str);
         } catch (NumberFormatException e) {
             return null;
         }
     }
 
     /**
-     * 引数が一つでもnullか空文字だったら、falseを返す。
-     * @param strings
-     * @return
+     * null、空文字判定を行う。
+     * @param strings 判定対象の文字列。
+     * @return 引数が一つでもnullか空文字だったら、false。
+     * 全てnullでも空文字でもなければtrue。
      */
     boolean isNullOrEmpty(String... strings) {
 

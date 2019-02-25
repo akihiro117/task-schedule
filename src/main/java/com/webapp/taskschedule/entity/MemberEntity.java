@@ -5,29 +5,29 @@
 package com.webapp.taskschedule.entity;
 
 /**
- * DBに入れる値を格納するクラス。
+ * memberテーブルに入れる値を格納するクラス。
  *
  */
 public class MemberEntity {
 
-	private String eMail;
+    private String eMail;
 
-	private String password;
+    private String password;
 
-	public String getEMail() {
-		return eMail;
-	}
+    public String getEMail() {
+        return eMail;
+    }
 
-	public void setEMail(String eMail) {
-		this.eMail = eMail;
-	}
+    public void setEMail(String eMail) {
+        this.eMail = eMail;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
 }

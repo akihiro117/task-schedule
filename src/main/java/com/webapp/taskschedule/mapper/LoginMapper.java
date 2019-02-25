@@ -6,7 +6,11 @@ package com.webapp.taskschedule.mapper;
 
 import com.webapp.taskschedule.certification.Account;
 
+/**
+ * ログイン時のDBアクセスを提供する。
+ *
+ */
 public interface LoginMapper {
 
-	public Account findOne(String mailAddress);
+    public Account findOne(String mailAddress);
 }

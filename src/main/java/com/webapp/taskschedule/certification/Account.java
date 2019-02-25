@@ -6,29 +6,28 @@ package com.webapp.taskschedule.certification;
 
 /**
  * ログインに必要な会員情報を格納するクラス。
- * @author Akihiro Yamada
  *
  */
 public class Account {
 
-	private String mailAddress;
+    private String mailAddress;
 
-	private String password;
+    private String password;
 
-	public String getMailAddress() {
-		return mailAddress;
-	}
+    public String getMailAddress() {
+        return mailAddress;
+    }
 
-	public void setMailAddress(String mailAddress) {
-		this.mailAddress = mailAddress;
-	}
+    public void setMailAddress(String mailAddress) {
+        this.mailAddress = mailAddress;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
 }

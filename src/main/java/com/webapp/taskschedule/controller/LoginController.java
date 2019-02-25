@@ -8,27 +8,31 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * ログイン時の画面遷移を提供するクラス。
+ *
+ */
 @Controller
 public class LoginController {
 
-	/**
-	 * ログインフォーム に遷移する。
-	 */
-	@RequestMapping("/login")
-	public String showLoginForm(Model model) {
+    /**
+     * ログインフォームに遷移する。
+     */
+    @RequestMapping("/login")
+    public String showLoginForm(Model model) {
 
-		//ログイン画面。
-		return "LoginForm";
-	}
+        //ログイン画面。
+        return "login-form";
+    }
 
-	/**
-	 * メインページに遷移する。
-	 * ログインが成功した場合、このメソッドが呼び出される。
-	 */
-	@RequestMapping("/")
-	public String login(Model model) {
+    /**
+     * メインページに遷移する。
+     * ログインが成功した場合、このメソッドが呼び出される。
+     */
+    @RequestMapping("/")
+    public String login(Model model) {
 
-		//メインページ。
-		return "index";
-	}
+        //メインページ。
+        return "index";
+    }
 }

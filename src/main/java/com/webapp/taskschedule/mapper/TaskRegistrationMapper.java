@@ -6,10 +6,14 @@ package com.webapp.taskschedule.mapper;
 
 import com.webapp.taskschedule.entity.TaskEntity;
 
+/**
+ * タスク登録機能に関するDBへのアクセスを提供する。
+ *
+ */
 public interface TaskRegistrationMapper {
-	/**
-	 * タスクをTASKテーブルに登録する。
-	 */
-	public void insertTask(TaskEntity entity);
+    /**
+     * タスクをTASKテーブルに登録する。
+     */
+    public void insertTask(TaskEntity entity);
 
 }

@@ -19,51 +19,56 @@ import com.webapp.taskschedule.mapper.TaskListMapper;
 import com.webapp.taskschedule.outputdata.TaskListOutputData;
 import com.webapp.taskschedule.utility.TaskScheduleUtility;
 
+/**
+ * タスク一覧取得処理を提供するサービスクラス。
+ *
+ */
 @Service
 @Transactional
 public class TaskListService {
 
-	@Autowired
-	TaskListMapper taskListMapper;
+    @Autowired
+    TaskListMapper taskListMapper;
 
-	@Autowired
-	CommonMapper commonMapper;
+    @Autowired
+    CommonMapper commonMapper;
 
-	/**
-	 * ユーザの全タスク情報を取得。
-	 * @return htmlに表示するタスク情報。
-	 */
-	public List<TaskListOutputData> findAllTask() {
+    /**
+     * ユーザの全タスク情報を取得。
+     * @return htmlに表示するタスク情報。
+     */
+    public List<TaskListOutputData> findAllTask() {
 
-		//TODO:nullで返ってきた場合の処理を実装。
-		//ログインユーザのメールアドレスをSecurityContextHolderを通して取得。
-		String mailAddress = TaskScheduleUtility.obtainUserMailAddress();
+        //TODO:nullで返ってきた場合の処理を実装。
+        //ログインユーザのメールアドレスをSecurityContextHolderを通して取得。
+        String mailAddress = TaskScheduleUtility.obtainUserMailAddress();
 
-		//IDをmemberテーブルから取得。
-		MemberEntity memberEntity = new MemberEntity();
-		memberEntity.setEMail(mailAddress);
-		int memberId = commonMapper.selectMemberId(memberEntity);
+        //IDをmemberテーブルから取得。
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setEMail(mailAddress);
+        int memberId = commonMapper.selectMemberId(memberEntity);
 
-		//mapperに渡す引数。
-		TaskEntity taskEntity = new TaskEntity();
+        //mapperに渡す引数。
+        TaskEntity taskEntity = new TaskEntity();
 
-		taskEntity.setMemberId(memberId);
+        taskEntity.setMemberId(memberId);
 
-		List<TaskEntity> taskList = taskListMapper.findAllTasks(taskEntity);
+        //ユーザーの全タスクを取得。
+        List<TaskEntity> taskList = taskListMapper.findAllTasks(taskEntity);
 
-		List<TaskListOutputData> outputData = new ArrayList<TaskListOutputData>();
+        List<TaskListOutputData> outputData = new ArrayList<TaskListOutputData>();
 
-		//TODO:deadLine順に表示するようする。
-		//DBから取得した項目をoutputDataに入れる。
-		for (TaskEntity tmp : taskList) {
-			TaskListOutputData tmpOutputData = new TaskListOutputData();
-			//tmpのフィールドをtmpOutputDataにコピー。
-			BeanUtils.copyProperties(tmp, tmpOutputData);
+        //TODO:deadLine順に表示するようする。
+        //DBから取得した項目をoutputDataに入れる。
+        for (TaskEntity tmp : taskList) {
+            TaskListOutputData tmpOutputData = new TaskListOutputData();
+            //tmpのフィールドをtmpOutputDataにコピー。
+            BeanUtils.copyProperties(tmp, tmpOutputData);
 
-			outputData.add(tmpOutputData);
-		}
+            outputData.add(tmpOutputData);
+        }
 
-		return outputData;
-	}
+        return outputData;
+    }
 
 }

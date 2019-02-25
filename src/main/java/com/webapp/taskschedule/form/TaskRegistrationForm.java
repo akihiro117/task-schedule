@@ -6,6 +6,11 @@ package com.webapp.taskschedule.form;
 
 import javax.validation.constraints.NotBlank;
 
+/**
+ * タスク登録フォームに入力された項目を入れるクラス。
+ * 単項目入力チェックを提供する。
+ *
+ */
 public class TaskRegistrationForm {
 
     @NotBlank(message = "タイトルを入力してください。")

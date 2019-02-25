@@ -41,13 +41,13 @@
     <div class="row">
         <nav class="nav nav-pills">
             <a class="nav-link" href="/">Home</a>
-            <a class="nav-link" href="/TaskList">タスク一覧</a>
+            <a class="nav-link" href="/task-list">タスク一覧</a>
             <a class="nav-link active" href="/task-registration-form">タスク登録</a>
         </nav>
     </div>
 </div>
 
-<form th:action="@{/TaskRegistration}" th:object="${taskRegistrationForm}" method="post">
+<form th:action="@{/task-registration}" th:object="${taskRegistrationForm}" method="post">
 	<div th:if="${errMsgs != null}" align="center">
 	    <span th:each="errMsg : ${errMsgs}">
 	        <span th:text="${errMsg}"></span><br>
@@ -110,7 +110,6 @@
            </div>
            <div class="col"></div>
        </div>
-
     </div>
 
 </form>

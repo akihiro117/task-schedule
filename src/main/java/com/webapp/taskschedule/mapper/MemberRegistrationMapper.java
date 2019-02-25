@@ -6,9 +6,13 @@ package com.webapp.taskschedule.mapper;
 
 import com.webapp.taskschedule.entity.MemberEntity;
 
+/**
+ * 会員情報の登録機能を提供する。
+ *
+ */
 public interface MemberRegistrationMapper {
-	/**
-	 * 会員情報をDBにinsertする。
-	 */
-	public void insertMemberInfo(MemberEntity entity);
+    /**
+     * 会員情報をDBにinsertする。
+     */
+    public void insertMemberInfo(MemberEntity entity);
 }

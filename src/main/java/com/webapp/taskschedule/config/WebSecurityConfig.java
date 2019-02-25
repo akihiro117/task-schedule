@@ -19,47 +19,56 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	UserDetailsService userDetailsService;
+    @Autowired
+    UserDetailsService userDetailsService;
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		//ログインページを指定。
-		//ログインページへのアクセスは全員許可する。
-		http.formLogin()
-				.loginPage("/login")
-				.loginProcessingUrl("/authenticate")
-				.usernameParameter("mailAddress")
-				.passwordParameter("password")
-				.defaultSuccessUrl("/")
-				.permitAll();
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        //ログインページを指定。
+        //ログインページへのアクセスは全員許可する。
+        http.formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/authenticate")
+                .usernameParameter("mailAddress")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/")
+                .permitAll();
 
-		http.authorizeRequests()
-				.antMatchers("/MemberRegistrationConfirm").permitAll()
-				.antMatchers("/MemberRegistrationForm").permitAll()
-				.antMatchers("/MemberRegistrationResult").permitAll()
-				.antMatchers("/css/*").permitAll()
-				.antMatchers("TaskList", "TaskRegistrationForm").hasRole("USER")
-				.anyRequest().authenticated();
+        //認可の情報を設定。
+        http.authorizeRequests()
+                .antMatchers("/member-registration-confirm").permitAll()
+                .antMatchers("/member-registration-form").permitAll()
+                .antMatchers("/member-registration-result").permitAll()
+                .antMatchers("/css/*").permitAll()
+                .antMatchers("task-list", "task-registration-form")
+                .hasRole("USER")
+                .anyRequest().authenticated();
 
-		//ログアウト機能を有効にし、
-		//全てのユーザにログアウトと
-		//ログアウト後のパスへのアクセス権を付与する。
-		http.logout()
-				.logoutSuccessUrl("/LogoutSuccess")
-				.permitAll();
-	}
+        //ログアウト機能を有効にし、
+        //全てのユーザにログアウト処理のパスと
+        //ログアウト後のパスへのアクセス権を付与する。
+        http.logout()
+                .logoutSuccessUrl("/logout-success")
+                .permitAll();
+    }
 
-	@Autowired
-	void configureAuthenticationManager(AuthenticationManagerBuilder auth)
-			throws Exception {
-		auth.userDetailsService(userDetailsService)
-				.passwordEncoder(passwordEncoder());
-	}
+    /**
+     * ハッシュ化したパスワードを用いて認証を行う。
+     */
+    @Autowired
+    void configureAuthenticationManager(AuthenticationManagerBuilder auth)
+            throws Exception {
+        auth.userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
+    }
 
-	@Bean
-	PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    /**
+     * パスワードをハッシュ化する。
+     * @return BCryptPasswordEncoderのインスタンス。
+     */
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
 }

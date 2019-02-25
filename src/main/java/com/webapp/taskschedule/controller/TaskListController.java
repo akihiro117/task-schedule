@@ -15,29 +15,28 @@ import com.webapp.taskschedule.outputdata.TaskListOutputData;
 import com.webapp.taskschedule.service.TaskListService;
 
 /**
- * タスク一覧機能を提供するコントローラークラス。
+ * タスク一覧機能を提供するクラス。
  *
  */
-
 @Controller
 public class TaskListController {
 
-	@Autowired
-	TaskListService taskListService;
+    @Autowired
+    TaskListService taskListService;
 
-	/**
-	 * タスク一覧を表示。
-	 * @return タスク一覧画面のhtml名。
-	 */
-	@RequestMapping("/TaskList")
-	String showTaskList(Model model) {
+    /**
+     * タスク一覧を表示。
+     * @return タスク一覧画面のhtml名。
+     */
+    @RequestMapping("/task-list")
+    String showTaskList(Model model) {
 
-		//ユーザの全タスクを取得。
-		List<TaskListOutputData> allTaskList = taskListService.findAllTask();
+        //ユーザの全タスクを取得。
+        List<TaskListOutputData> allTaskList = taskListService.findAllTask();
 
-		model.addAttribute("allTaskList", allTaskList);
+        model.addAttribute("allTaskList", allTaskList);
 
-		return "TaskList";
-	}
+        return "task-list";
+    }
 
 }

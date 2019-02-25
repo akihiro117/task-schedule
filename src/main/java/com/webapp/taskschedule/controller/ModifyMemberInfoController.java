@@ -10,9 +10,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.webapp.taskschedule.utility.TaskScheduleUtility;
 
+/**
+ * 会員情報の変更機能を提供するクラス。
+ *
+ */
 @Controller
 public class ModifyMemberInfoController {
 
+    /**
+     * 会員情報を表示する。
+     * @return 会員情報画面。
+     */
     @RequestMapping("member-info")
     public String showMemberInfoPage(Model model) {
 

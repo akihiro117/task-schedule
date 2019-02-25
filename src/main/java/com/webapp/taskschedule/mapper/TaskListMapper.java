@@ -8,11 +8,15 @@ import java.util.List;
 
 import com.webapp.taskschedule.entity.TaskEntity;
 
+/**
+ * タスク一覧機能に関するDBへのアクセスを提供する。
+ *
+ */
 public interface TaskListMapper {
 
-	/**
-	 * Taskテーブルからユーザのタスク情報を取得する。
-	 */
-	public List<TaskEntity> findAllTasks(TaskEntity entity);
+    /**
+     * Taskテーブルからユーザのタスク情報を取得する。
+     */
+    public List<TaskEntity> findAllTasks(TaskEntity entity);
 
 }

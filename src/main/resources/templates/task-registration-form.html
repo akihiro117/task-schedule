@@ -28,18 +28,9 @@
 
 <script src="/js/task-registration-form.js"></script>
 
-<script>
-  $( function() {
-    $( ".date" ).datepicker({
-    	dateFormat: "yy/mm/dd"
-    });
-  } );
-
-</script>
-
 <title>新規タスク登録</title>
 </head>
-<body>
+<body onLoad="init(); addScheduleForm();">
 
 <div class="container">
     <div align="right">
@@ -86,7 +77,7 @@
                </div>
                <div class="form-group">
                    <label for="strDeadLine">締切日</label>
-                   <input class="form-control date" type="text" th:field="*{strDeadLine}" readonly>
+                   <input class="form-control" type="text" th:field="*{strDeadLine}" id="date1" readonly>
                </div>
                <div class="form-group">
                    <label for="requiredHour">予定所要時間</label>
@@ -101,12 +92,12 @@
                    <label for="strScheduleStartDate" class="addBtn">
                        予定作業日時
                        <span class="addBtn">
-                         <button type="button" class="btn btn-success h-100" id="add-form">日時追加</button>
+                           <button type="button" class="btn btn-success h-100" id="add-form">日時追加</button>
                        </span>
                    </label>
 
                    <div class="input-group">
-                      <input class="form-control date" type="text" th:field="*{strScheduleStartDate}" readonly>
+                      <input class="form-control" type="text" th:field="*{strScheduleStartDate}" id="date2" readonly>
                       <span class="input-group-addon">&nbsp;&nbsp;</span>
                       <input class="form-control" type="time" th:field="*{strScheduleStartTime}">
                       <span class="input-group-addon input-group-char">〜</span>
@@ -123,10 +114,6 @@
     </div>
 
 </form>
-
-<script>
-    addScheduleForm();
-</script>
 
 </body>
 </html>

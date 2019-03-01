@@ -21,4 +21,24 @@
            )
     </insert>
 
+    <select id="selectNewTaskId" resultType="_int">
+        SELECT
+            LAST_VALUE
+        FROM
+            TASK_TASK_ID_SEQ
+    </select>
+
+    <insert id="insertSchedule" parameterType="com.webapp.taskschedule.entity.ScheduleEntity">
+        INSERT INTO
+            SCHEDULE(
+                TASK_ID,
+                START_DATE_TIME,
+                END_DATE_TIME
+            ) VALUES (
+                #{taskId},
+                #{startDateTime},
+                #{endDateTime}
+            )
+    </insert>
+
 </mapper>

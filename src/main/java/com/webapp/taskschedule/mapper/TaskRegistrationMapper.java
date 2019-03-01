@@ -4,6 +4,7 @@
 
 package com.webapp.taskschedule.mapper;
 
+import com.webapp.taskschedule.entity.ScheduleEntity;
 import com.webapp.taskschedule.entity.TaskEntity;
 
 /**
@@ -14,6 +15,17 @@ public interface TaskRegistrationMapper {
     /**
      * タスクをTASKテーブルに登録する。
      */
+    //TODO:for updateを付け加える。
     public void insertTask(TaskEntity entity);
+
+    /**
+     * 登録したばかりのタスクIDを取得する。
+     */
+    public int selectNewTaskId();
+
+    /**
+     * タスクの作業予定日を登録する。
+     */
+    public void insertSchedule(ScheduleEntity entity);
 
 }

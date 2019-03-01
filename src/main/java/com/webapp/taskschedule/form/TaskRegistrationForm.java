@@ -5,6 +5,8 @@
 package com.webapp.taskschedule.form;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  * タスク登録フォームに入力された項目を入れるクラス。
@@ -13,26 +15,27 @@ import javax.validation.constraints.NotBlank;
  */
 public class TaskRegistrationForm {
 
+    //タスクのタイトル。
     @NotBlank(message = "タイトルを入力してください。")
+    @Size(max = 50, message = "タイトルの文字数が最大文字数50文字を超えています。")
     private String taskTitle;
 
-    @NotBlank(message = "タスクの詳細を入力してください。")
+    //タスクの詳細内容
+    @Size(max = 500, message = "内容の文字数が最大文字数500文字を超えています。")
     private String taskDetail;
 
     //締切年月日
-    @NotBlank(message = "締切日を入力してください。")
     private String strDeadLine;
 
-    //作業完了までの所要時間
-    @NotBlank(message = "所要時間を入力してください。")
+    //作業完了までの所要時間(時)
+    //文字列で受け取るため、範囲チェックはcontrollerで行う。
+    //数値への変換はserviceクラスで行う。
+    @Pattern(regexp = "[0-9]*", message = "正しい時を入力してください。")
     private String requiredHour;
 
-    @NotBlank(message = "所要時間を入力してください。")
+    //作業完了までの所要時間(分)
+    @Pattern(regexp = "^[0-5]?[0-9]?$", message = "正しい分を入力してください。")
     private String requiredMinute;
-
-    private int intRequiredHour;
-
-    private int intRequiredMinute;
 
     //タスクの作業予定日。
     private String[] strScheduleStartDate;
@@ -81,22 +84,6 @@ public class TaskRegistrationForm {
 
     public void setRequiredMinute(String requiredMinute) {
         this.requiredMinute = requiredMinute;
-    }
-
-    public int getIntRequiredHour() {
-        return intRequiredHour;
-    }
-
-    public void setIntRequiredHour(int intRequiredHour) {
-        this.intRequiredHour = intRequiredHour;
-    }
-
-    public int getIntRequiredMinute() {
-        return intRequiredMinute;
-    }
-
-    public void setIntRequiredMinute(int intRequiredMinute) {
-        this.intRequiredMinute = intRequiredMinute;
     }
 
     public String[] getStrScheduleStartDate() {

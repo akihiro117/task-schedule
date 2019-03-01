@@ -4,11 +4,9 @@
 
 package com.webapp.taskschedule.controller;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.webapp.taskschedule.form.TaskRegistrationForm;
 import com.webapp.taskschedule.service.TaskRegistrationService;
+import com.webapp.taskschedule.utility.DateUtility;
 
 /**
  * タスク登録機能を提供するコントローラークラス。
@@ -46,42 +45,11 @@ public class TaskRegistrationController {
             @Validated @ModelAttribute TaskRegistrationForm taskRegistrationForm,
             BindingResult result) {
 
-        boolean hasUserDefinedErr = false;
-
+        //controllerで追加するエラーメッセージ。
         List<String> errMsgs = new ArrayList<String>();
+        boolean errors = !isCorrectFormValue(taskRegistrationForm, errMsgs);
 
-        //作業所要時間(時)
-        Integer requiredHour = convertStrToInt(
-                taskRegistrationForm.getRequiredHour());
-
-        if (requiredHour == null) {
-            errMsgs.add("時間を数値で入力してください。");
-
-            hasUserDefinedErr = true;
-        } else {
-            //アンボクシングを避けるためにintValue()で明示的に変換する。
-            taskRegistrationForm
-                    .setIntRequiredHour(requiredHour.intValue());
-        }
-
-        //作業所要時間(分)
-        Integer requiredMinute = convertStrToInt(
-                taskRegistrationForm.getRequiredMinute());
-
-        if (requiredMinute == null) {
-            errMsgs.add("分を数値で入力してください。");
-
-            hasUserDefinedErr = true;
-        } else if (requiredMinute.intValue() >= 60
-                || requiredMinute.intValue() < 0) {
-            errMsgs.add("正しい分を入力してください。");
-            hasUserDefinedErr = true;
-        } else {
-            taskRegistrationForm
-                    .setIntRequiredMinute(requiredMinute.intValue());
-        }
-
-        if (hasUserDefinedErr || result.hasErrors()) {
+        if (errors || result.hasErrors()) {
             model.addAttribute("errMsgs", errMsgs);
 
             return "task-registration-form";
@@ -93,57 +61,37 @@ public class TaskRegistrationController {
     }
 
     /**
-     * 第二引数のフォーマットのString型の日付を
-     * Date型に変換する。
-     * @param str 変換対象の日付。
-     * @param format 変換対象のフォーマット。
-     * @return 変換対象の日付が日付の形式の場合は、Date型の日付。
-     * 日付の形式でない場合はnullを返す。
+     * formクラスのアノテーションでチェックできない入力チェックを行う。
+     * @param taskRegistrationForm タスク登録フォームに入力された値。
+     * @return 正しい値->true。正しくない値->false。
      */
-    Date converStrToDate(String str, String format) {
-        DateFormat dateFormat = new SimpleDateFormat(format);
+    boolean isCorrectFormValue(TaskRegistrationForm taskRegistrationForm,
+            List<String> errMsgs) {
 
-        try {
-            //厳密モードを設定。
-            dateFormat.setLenient(false);
+        //正しい日付か否かのフラグ。
+        boolean correctFormValue = true;
 
-            return dateFormat.parse(str);
-        } catch (ParseException e) {
-            //日付の形式でない場合はnullを返す。
-            return null;
+        //締切り日の日付妥当性チェック。
+        Date pasedDeadLine = DateUtility
+                .parse(taskRegistrationForm.getStrDeadLine(), "yyyy/MM/dd");
+        if (pasedDeadLine == null) {
+            //日付が正しくない場合。
+            errMsgs.add("締切日に正しい日付を入力してください。");
+            correctFormValue = false;
         }
-    }
 
-    /**
-     * String型をint型に変換する。
-     * @param str 変換対象。
-     * @return 変換できる場合、数値。
-     * 変換できない場合、null。
-     */
-    Integer convertStrToInt(String str) {
-        try {
-            //intからIntegerへのオートボクシングを避けるため、
-            //parseInt()でなくvalueOf()を使用する。
-            return Integer.valueOf(str);
-        } catch (NumberFormatException e) {
-            return null;
-        }
-    }
+        //作業予定日の日付妥当性チェック。
+        String[] scheduleDateArray = taskRegistrationForm
+                .getStrScheduleStartDate();
 
-    /**
-     * null、空文字判定を行う。
-     * @param strings 判定対象の文字列。
-     * @return 引数が一つでもnullか空文字だったら、false。
-     * 全てnullでも空文字でもなければtrue。
-     */
-    boolean isNullOrEmpty(String... strings) {
+        //入力された日付の内、一つでもnullがあれば正しくない日付と判定。
+        correctFormValue = Arrays.stream(scheduleDateArray)
+                .allMatch(s -> DateUtility.parse(s, "yyyy/MM/dd") != null);
 
-        for (String str : strings) {
-            if (str == null || str.equals("")) {
-                return true;
-            }
-        }
-        return false;
+        //TODO:エラーメッセージを追加。
+
+        return correctFormValue;
+
     }
 
 }

@@ -70,6 +70,7 @@ public class TaskRegistrationService {
             int newTaskId = taskRegistrationMapper.selectNewTaskId();
 
             //作業予定日時の作成。
+            //TODO:stream APIに置き換える。
             String[] scheduleDate = form.getStrScheduleStartDate();
             int numScheduleDate = form.getStrScheduleStartDate().length;
             for (int i = 0; i < numScheduleDate; i++) {

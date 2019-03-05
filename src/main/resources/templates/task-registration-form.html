@@ -54,13 +54,10 @@
 	    </span>
 	</div>
 	<div th:if="${source == null or not source.equals('main')}" align="center">
-	    <span th:if="${#fields.hasErrors('taskTitle')}" th:errors="*{taskTitle}"></span><br>
-		<span th:if="${#fields.hasErrors('taskDetail')}" th:errors="*{taskDetail}"></span><br>
-		<span th:if="${#fields.hasErrors('deadLineYear') or #fields.hasErrors('deadLineMonth') or
-		             #fields.hasErrors('deadLineDay')}"
-		      th:text="締切日を入力してください。"></span><br>
-		<span th:if="${#fields.hasErrors('requiredHour') or #fields.hasErrors('requiredMinute')}"
-              th:text="予定所要時間を入力してください。"></span><br>
+	    <span th:if="${#fields.hasErrors('taskTitle')}" th:errors="*{taskTitle}"><br></span>
+		<span th:if="${#fields.hasErrors('taskDetail')}" th:errors="*{taskDetail}"><br></span><br>
+		<span th:if="${#fields.hasErrors('requiredHour')}" th:errors="*{requiredHour}"><br></span>
+		<span th:if="${#fields.hasErrors('requiredMinute')}" th:errors="*{requiredMinute}"><br></span>
     </div>
 
     <div class="container">

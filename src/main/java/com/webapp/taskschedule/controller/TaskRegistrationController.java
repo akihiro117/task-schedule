@@ -30,6 +30,11 @@ public class TaskRegistrationController {
     @Autowired
     private TaskRegistrationService taskRegistrationService;
 
+    /**
+     * タスクの登録フォームを表示する。
+     * @param model
+     * @return タスクの登録フォームのhtml名。
+     */
     @RequestMapping("/task-registration-form")
     String showTaskRegistrationForm(Model model) {
 
@@ -72,26 +77,63 @@ public class TaskRegistrationController {
         boolean correctFormValue = true;
 
         //締切り日の日付妥当性チェック。
-        Date pasedDeadLine = DateUtility
-                .parse(taskRegistrationForm.getStrDeadLine(), "yyyy/MM/dd");
-        if (pasedDeadLine == null) {
-            //日付が正しくない場合。
-            errMsgs.add("締切日に正しい日付を入力してください。");
-            correctFormValue = false;
+        String deadLine = taskRegistrationForm.getStrDeadLine();
+        if (deadLine != null && !deadLine.equals("")) {
+            Date parsedDeadLine = DateUtility.parse(deadLine, "yyyy/MM/dd");
+            if (parsedDeadLine == null) {
+                //日付が正しくない場合。
+                errMsgs.add("締切日に正しい日付を入力してください。");
+                correctFormValue = false;
+            }
         }
 
         //作業予定日の日付妥当性チェック。
+        //日付、開始時刻、終了時刻の全てがnull、または
+        //全てがnullでない場合はOK。
+        //それ以外は、NG。
+
         String[] scheduleDateArray = taskRegistrationForm
                 .getStrScheduleStartDate();
 
-        //入力された日付の内、一つでもnullがあれば正しくない日付と判定。
-        correctFormValue = Arrays.stream(scheduleDateArray)
-                .allMatch(s -> DateUtility.parse(s, "yyyy/MM/dd") != null);
+        String[] scheduleStartTimeArray = taskRegistrationForm
+                .getStrScheduleStartTime();
 
-        //TODO:エラーメッセージを追加。
+        String[] scheduleEndTimeArray = taskRegistrationForm
+                .getStrScheduleEndTime();
+
+        //各配列の長さが異なる場合はいずれかが全てnullなのでエラー。
+        if (!(scheduleDateArray.length == scheduleStartTimeArray.length &&
+                scheduleDateArray.length == scheduleEndTimeArray.length)) {
+            correctFormValue = false;
+
+            //エラーメッセージを追加。
+            errMsgs.add("日付が正しく入力されていません。");
+
+            return correctFormValue;
+        }
+
+        boolean allNullOrNotNull = true;
+        for (int i = 0; i < scheduleDateArray.length; i++) {
+            allNullOrNotNull = false;
+
+            allNullOrNotNull = Arrays
+                    .asList(scheduleDateArray[i], scheduleStartTimeArray[i],
+                            scheduleEndTimeArray[i])
+                    .stream().allMatch(s -> s == null);
+            allNullOrNotNull = Arrays
+                    .asList(scheduleDateArray[i], scheduleStartTimeArray[i],
+                            scheduleEndTimeArray[i])
+                    .stream().allMatch(s -> s != null);
+            if (!allNullOrNotNull) {
+                //エラーメッセージを追加。
+                errMsgs.add("日付が正しく入力されていません。");
+                correctFormValue = false;
+
+                break;
+            }
+        }
 
         return correctFormValue;
-
     }
 
 }

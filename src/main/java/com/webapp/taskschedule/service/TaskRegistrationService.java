@@ -22,7 +22,7 @@ import com.webapp.taskschedule.utility.DateUtility;
 import com.webapp.taskschedule.utility.TaskScheduleUtility;
 
 /**
- * タスク登録を提供するサービスクラス。
+ * タスク登録機能を提供するサービスクラス。
  *
  */
 @Service
@@ -37,6 +37,7 @@ public class TaskRegistrationService {
 
     /**
      * タスクをDBに登録。
+     * @param form 登録するタスク情報。
      */
     public void registerTask(TaskRegistrationForm form) {
 
@@ -62,17 +63,23 @@ public class TaskRegistrationService {
         //スケジュール以外の項目をTASKテーブルに登録。
         taskRegistrationMapper.insertTask(task);
 
-        if (form.getStrScheduleStartDate() != null) {
+        //作業予定日付。
+        String[] scheduleDate = form.getStrScheduleStartDate();
+
+        int numScheduleDate = scheduleDate.length;
+
+        //登録したタスクのIDを使用して作業予定日時をSCHEDULEテーブルに登録するために、
+        //登録したタスクのIDを取得。
+        int newTaskId = taskRegistrationMapper.selectNewTaskId();
+
+        if (scheduleDate != null && numScheduleDate != 0) {
             //スケジュールが入力された場合。
 
-            //登録したタスクのIDを使用とスケジュールをSCHEDULEテーブルに登録。
-            //登録したタスクのIDを取得。
-            int newTaskId = taskRegistrationMapper.selectNewTaskId();
-
             //作業予定日時の作成。
-            //TODO:stream APIに置き換える。
-            String[] scheduleDate = form.getStrScheduleStartDate();
-            int numScheduleDate = form.getStrScheduleStartDate().length;
+            //日付の配列と開始時刻の配列と終了時刻の配列の
+            //同じ要素番号の値を文字列結合して、
+            //LocalDateTime型に変換してから
+            //timestamp型に変換してinsertする。
             for (int i = 0; i < numScheduleDate; i++) {
                 //開始日時。
                 String strScheduleStartDateTime = scheduleDate[i] + " "
@@ -81,16 +88,19 @@ public class TaskRegistrationService {
                         .ofPattern("yyyy/MM/dd HH:mm");
                 LocalDateTime scheduleStartDateTime = LocalDateTime
                         .parse(strScheduleStartDateTime, dtf);
+
                 //終了日時。
                 String strScheduleEndDateTime = scheduleDate[i] + " "
                         + form.getStrScheduleEndTime()[i];
                 LocalDateTime scheduleEndDateTime = LocalDateTime
                         .parse(strScheduleEndDateTime, dtf);
+
                 ScheduleEntity schedule = new ScheduleEntity();
                 schedule.setTaskId(newTaskId);
                 schedule.setStartDateTime(
                         Timestamp.valueOf(scheduleStartDateTime));
                 schedule.setEndDateTime(Timestamp.valueOf(scheduleEndDateTime));
+
                 taskRegistrationMapper.insertSchedule(schedule);
             }
         }

@@ -45,6 +45,14 @@ public class TaskRegistrationController {
         return "task-registration-form";
     }
 
+    /**
+     * タスクを新規登録する。
+     * @param model
+     * @param taskRegistrationForm タスク情報。
+     * @param result バリデーション結果。
+     * @return 入力チェックエラーなし->タスク一覧画面、
+     * 入力チェックエラー有り->タスク登録フォーム。
+     */
     @RequestMapping("/task-registration")
     String registerTask(Model model,
             @Validated @ModelAttribute TaskRegistrationForm taskRegistrationForm,
@@ -52,6 +60,8 @@ public class TaskRegistrationController {
 
         //controllerで追加するエラーメッセージ。
         List<String> errMsgs = new ArrayList<String>();
+
+        //相関項目エラーがあるか否か。
         boolean errors = !isCorrectFormValue(taskRegistrationForm, errMsgs);
 
         if (errors || result.hasErrors()) {
@@ -68,7 +78,7 @@ public class TaskRegistrationController {
     /**
      * formクラスのアノテーションでチェックできない入力チェックを行う。
      * @param taskRegistrationForm タスク登録フォームに入力された値。
-     * @return 正しい値->true。正しくない値->false。
+     * @return 全て正しい値->true。正しくない値が存在する->false。
      */
     boolean isCorrectFormValue(TaskRegistrationForm taskRegistrationForm,
             List<String> errMsgs) {
@@ -112,18 +122,26 @@ public class TaskRegistrationController {
             return correctFormValue;
         }
 
+        //作業予定日付か開始時刻か終了時刻の全てがNullまたは
+        //全てがNullでない場合はtrue(OK)、いずれかがNullまたは
+        //Nullでない場合はfalse(NG)とする。
         boolean allNullOrNotNull = true;
+
         for (int i = 0; i < scheduleDateArray.length; i++) {
             allNullOrNotNull = false;
 
+            //全てがNullか否か。
             allNullOrNotNull = Arrays
                     .asList(scheduleDateArray[i], scheduleStartTimeArray[i],
                             scheduleEndTimeArray[i])
                     .stream().allMatch(s -> s == null);
+
+            //全てがNullでないか否か。
             allNullOrNotNull = Arrays
                     .asList(scheduleDateArray[i], scheduleStartTimeArray[i],
                             scheduleEndTimeArray[i])
                     .stream().allMatch(s -> s != null);
+
             if (!allNullOrNotNull) {
                 //エラーメッセージを追加。
                 errMsgs.add("日付が正しく入力されていません。");

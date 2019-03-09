@@ -16,4 +16,27 @@
            MEMBER_ID = #{memberId}
     </select>
 
+    <select id="findTodaysTasks" parameterType="com.webapp.taskschedule.DaoData.TaskScheduleInputDaoData"
+                                 resultType="com.webapp.taskschedule.DaoData.TaskScheduleOutputDaoData">
+        SELECT
+           TS.TITLE AS title,
+           TS.DETAIL AS detail,
+           TS.DEAD_LINE AS deadLine,
+           TS.REQUIRED_HOUR AS requiredHour,
+           TS.REQUIRED_MINUTE AS requiredMinute,
+           SD.START_DATE_TIME AS startDateTime,
+           SD.END_DATE_TIME AS endDateTime
+        FROM
+           SCHEDULE SD
+        INNER JOIN
+           TASK TS
+        ON
+           SD.TASK_ID = TS.TASK_ID
+        WHERE
+           TS.MEMBER_ID = #{memberId}
+        AND
+           TO_CHAR(SD.START_DATE_TIME, 'yyyyMMdd') = #{today}
+
+    </select>
+
 </mapper>

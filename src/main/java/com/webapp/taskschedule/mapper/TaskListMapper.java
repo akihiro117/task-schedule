@@ -6,6 +6,8 @@ package com.webapp.taskschedule.mapper;
 
 import java.util.List;
 
+import com.webapp.taskschedule.DaoData.TaskScheduleInputDaoData;
+import com.webapp.taskschedule.DaoData.TaskScheduleOutputDaoData;
 import com.webapp.taskschedule.entity.TaskEntity;
 
 /**
@@ -18,5 +20,11 @@ public interface TaskListMapper {
      * Taskテーブルからユーザのタスク情報を取得する。
      */
     public List<TaskEntity> findAllTasks(TaskEntity entity);
+
+    /**
+     * Taskテーブルからユーザの今日のタスク情報を取得する。
+     */
+    public List<TaskScheduleOutputDaoData> findTodaysTasks(
+            TaskScheduleInputDaoData inputDaoData);
 
 }

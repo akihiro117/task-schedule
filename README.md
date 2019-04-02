@@ -19,6 +19,7 @@ Spring bootや、thymeleaf、spring securityを試すために作りました。
 - Jdk: 1.8
 - フレームワーク: Spring boot 2.1.1
 - データベース: Postgresql 
+- O/R mapper: Mybatis 1.3.2
 - テンプレートエンジン: Thymeleaf
 - Build: Maven
 

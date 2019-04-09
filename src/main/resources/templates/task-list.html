@@ -22,6 +22,8 @@
 
 <link rel="stylesheet" href="/css/common.css">
 
+<script src="/js/task-list.js"></script>
+
 <title>タスク一覧</title>
 </head>
 <body>
@@ -53,6 +55,7 @@
                         <h5 class="my-0"
                             th:text="${task.title + ' ' + task.strDeadLine + ' 締切'
 	               + ' 所要時間: ' + task.requiredHour + '時間' + task.requiredMinute + '分'}"></h5>
+                        <button type="button" class="btn btn-danger" onClick="deleteTask()">削除</button>
                     </div>
                 </div>
             </div>

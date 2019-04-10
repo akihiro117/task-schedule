@@ -12,6 +12,9 @@ import java.util.Date;
  *
  */
 public class TaskListOutputData {
+    // タスクのID。
+    private String taskId;
+
     //タスクのタイトル。
     private String title;
 
@@ -29,6 +32,14 @@ public class TaskListOutputData {
 
     //作業完了までの所要分。
     private Integer requiredMinute;
+
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
+    }
 
     public String getTitle() {
         return title;

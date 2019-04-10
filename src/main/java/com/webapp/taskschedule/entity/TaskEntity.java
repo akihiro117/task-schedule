@@ -11,6 +11,8 @@ import java.sql.Date;
  */
 public class TaskEntity {
 
+    private String taskId;
+
     private int memberId;
 
     private String title;
@@ -24,6 +26,14 @@ public class TaskEntity {
     private Integer requiredHour;
 
     private Integer requiredMinute;
+
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
+    }
 
     public int getMemberId() {
         return memberId;

@@ -55,7 +55,11 @@
                         <h5 class="my-0"
                             th:text="${task.title + ' ' + task.strDeadLine + ' 締切'
 	               + ' 所要時間: ' + task.requiredHour + '時間' + task.requiredMinute + '分'}"></h5>
-                        <button type="button" class="btn btn-danger" onClick="deleteTask()">削除</button>
+                        <form th:action="@{/delete-task}" method="POST">
+                            <input type="hidden" name="taskId" th:value="${task.taskId}">
+                            <button id="del-btn" type="submit" class="btn btn-danger"
+                                onclick="confirmDelete()">削除</button>
+                        </form>
                     </div>
                 </div>
             </div>

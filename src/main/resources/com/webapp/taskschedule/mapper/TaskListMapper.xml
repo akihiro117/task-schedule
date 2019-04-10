@@ -5,6 +5,7 @@
     <select id="findAllTasks" parameterType="com.webapp.taskschedule.entity.TaskEntity"
                               resultType="com.webapp.taskschedule.entity.TaskEntity">
         SELECT
+           TASK_ID AS taskId,
            TITLE AS title,
            DETAIL AS detail,
            DEAD_LINE AS deadLine,

@@ -21,6 +21,7 @@
     crossorigin="anonymous"></script>
 
 <link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/task-list.css">
 
 <script src="/js/task-list.js"></script>
 
@@ -51,14 +52,14 @@
         <div class="container">
             <div th:each="task : ${allTaskList}" class="col-7">
                 <div class="card rounded mb-3 bg-white">
-                    <div class="card-block py-2">
-                        <h5 class="my-0"
-                            th:text="${task.title + ' ' + task.strDeadLine + ' 締切'
-	               + ' 所要時間: ' + task.requiredHour + '時間' + task.requiredMinute + '分'}"></h5>
-                        <form th:action="@{/delete-task}" method="POST">
+                    <div class="card-block py-2 task-group-card">
+                            <h6 id="task-content" class="my-0 task-group"
+                                th:text="${task.title + ' ' + task.strDeadLine + ' 締切'
+    	               + ' 所要時間: ' + task.requiredHour + '時間' + task.requiredMinute + '分'}"></h6>
+                        <form th:action="@{/delete-task}" method="POST" class="task-group">
                             <input type="hidden" name="taskId" th:value="${task.taskId}">
-                            <button id="del-btn" type="submit" class="btn btn-danger"
-                                onclick="confirmDelete()">削除</button>
+                                <button id="del-btn" type="submit" class="btn btn-sm btn-danger"
+                                    onclick="confirmDelete()">削除</button>
                         </form>
                     </div>
                 </div>

@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+/*タスクの表示のグループ*/
+.task-group {
+    display: inline;
+}
+
+.task-group-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#del-btn {
+    margin-right: 15px;
+}
+
+#task-content {
+    margin-left: 15px;
+}

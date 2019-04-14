@@ -58,7 +58,6 @@ public class TaskListService {
 
         List<TaskListOutputData> outputData = new ArrayList<TaskListOutputData>();
 
-        //TODO:deadLine順に表示するようする。
         //DBから取得した項目をoutputDataに入れる。
         for (TaskEntity tmp : taskList) {
             TaskListOutputData tmpOutputData = new TaskListOutputData();

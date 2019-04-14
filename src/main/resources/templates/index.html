@@ -22,27 +22,12 @@
 
 <link rel="stylesheet" type="text/css" href="css/common.css">
 
+<script src="/js/common.js"></script>
+
 <title>メインページ</title>
 </head>
-<body>
-
-    <div class="container">
-        <div align="right">
-
-            <form th:action="@{/logout}" name="logout" method="post">
-                <a href="member-info">登録情報変更</a> <a
-                    href="javascript:logout.submit()">ログアウト</a>
-            </form>
-        </div>
-        <div class="row">
-            <nav class="nav nav-pills">
-                <a class="nav-link active" href="/">Home</a> <a
-                    class="nav-link" href="/task-list">タスク一覧</a> <a
-                    class="nav-link" href="/task-registration-form">タスク登録</a>
-            </nav>
-        </div>
-    </div>
-
+<body onload="initHeader('nav-home')">
+    <div th:include="/header.html::header"></div>
     <h3 align="center">今日のタスク</h3>
 
     <div th:if="todaysTaskList != null" align="center">

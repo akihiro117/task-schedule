@@ -26,90 +26,76 @@
 <link rel="stylesheet" href="/css/common.css">
 <link rel="stylesheet" href="/css/task-registration-form.css">
 
+<script src="/js/common.js"></script>
 <script src="/js/task-registration-form.js"></script>
 
 <title>新規タスク登録</title>
 </head>
-<body onLoad="init(); addScheduleForm();">
+<body onLoad="init(); addScheduleForm(); initHeader('nav-register')">
 
-<div class="container">
-    <div align="right">
-        <form th:action="@{/logout}" name="logout" method="post">
-            <a href="javascript:logout.submit()">ログアウト</a>
-        </form>
-    </div>
-    <div class="row">
-        <nav class="nav nav-pills">
-            <a class="nav-link" href="/">Home</a>
-            <a class="nav-link" href="/task-list">タスク一覧</a>
-            <a class="nav-link active" href="/task-registration-form">タスク登録</a>
-        </nav>
-    </div>
-</div>
+    <div th:include="/header.html::header"></div>
+    <form th:action="@{/task-registration}" th:object="${taskRegistrationForm}" method="post">
+    	<div th:if="${errMsgs != null}" align="center">
+    	    <span th:each="errMsg : ${errMsgs}">
+    	        <span th:text="${errMsg}"></span><br>
+    	    </span>
+    	</div>
+    	<div th:if="${source == null or not source.equals('main')}" align="center">
+    	    <span th:if="${#fields.hasErrors('taskTitle')}" th:errors="*{taskTitle}"><br></span>
+    		<span th:if="${#fields.hasErrors('taskDetail')}" th:errors="*{taskDetail}"><br></span><br>
+    		<span th:if="${#fields.hasErrors('requiredHour')}" th:errors="*{requiredHour}"><br></span>
+    		<span th:if="${#fields.hasErrors('requiredMinute')}" th:errors="*{requiredMinute}"><br></span>
+        </div>
 
-<form th:action="@{/task-registration}" th:object="${taskRegistrationForm}" method="post">
-	<div th:if="${errMsgs != null}" align="center">
-	    <span th:each="errMsg : ${errMsgs}">
-	        <span th:text="${errMsg}"></span><br>
-	    </span>
-	</div>
-	<div th:if="${source == null or not source.equals('main')}" align="center">
-	    <span th:if="${#fields.hasErrors('taskTitle')}" th:errors="*{taskTitle}"><br></span>
-		<span th:if="${#fields.hasErrors('taskDetail')}" th:errors="*{taskDetail}"><br></span><br>
-		<span th:if="${#fields.hasErrors('requiredHour')}" th:errors="*{requiredHour}"><br></span>
-		<span th:if="${#fields.hasErrors('requiredMinute')}" th:errors="*{requiredMinute}"><br></span>
-    </div>
+        <div class="container">
+           <div class="row">
+               <div class="col"></div>
+               <div class="col align-self-center form-area rounded shadow-sm">
+                   <div class="form-group">
+                       <label for="taskTitle">タイトル</label>
+                       <input type="text" class="form-control" th:field="*{taskTitle}" placeholder="タイトル"/>
+                   </div>
+                   <div class="form-group">
+                       <label for="taskDetail">詳細</label>
+                       <textarea class="form-control" th:field="*{taskDetail}" placeholder="タスク詳細"></textarea>
+                   </div>
+                   <div class="form-group">
+                       <label for="strDeadLine">締切日</label>
+                       <input class="form-control" type="text" th:field="*{strDeadLine}" id="date1" readonly>
+                   </div>
+                   <div class="form-group">
+                       <label for="requiredHour">予定所要時間</label>
+                       <div class="input-group">
+                           <input class="form-control" type="number" step="1" min="0" max="999" th:field="*{requiredHour}">
+                           <span class="input-group-addon input-group-char">&nbsp;時間&nbsp;</span>
+                           <input class="form-control" type="number" step="1" min="0" max="59" th:field="*{requiredMinute}">
+                           <span class="input-group-addon input-group-char">&nbsp;分&nbsp;</span>
+                       </div>
+                   </div>
+                   <div class="form-group" id="schedule-form">
+                       <label for="strScheduleStartDate" class="addBtn">
+                           予定作業日時
+                           <span class="addBtn">
+                               <button type="button" class="btn btn-success h-100" id="add-form">日時追加</button>
+                           </span>
+                       </label>
 
-    <div class="container">
-       <div class="row">
-           <div class="col"></div>
-           <div class="col align-self-center form-area rounded shadow-sm">
-               <div class="form-group">
-                   <label for="taskTitle">タイトル</label>
-                   <input type="text" class="form-control" th:field="*{taskTitle}" placeholder="タイトル"/>
-               </div>
-               <div class="form-group">
-                   <label for="taskDetail">詳細</label>
-                   <textarea class="form-control" th:field="*{taskDetail}" placeholder="タスク詳細"></textarea>
-               </div>
-               <div class="form-group">
-                   <label for="strDeadLine">締切日</label>
-                   <input class="form-control" type="text" th:field="*{strDeadLine}" id="date1" readonly>
-               </div>
-               <div class="form-group">
-                   <label for="requiredHour">予定所要時間</label>
-                   <div class="input-group">
-                       <input class="form-control" type="number" step="1" min="0" max="999" th:field="*{requiredHour}">
-                       <span class="input-group-addon input-group-char">&nbsp;時間&nbsp;</span>
-                       <input class="form-control" type="number" step="1" min="0" max="59" th:field="*{requiredMinute}">
-                       <span class="input-group-addon input-group-char">&nbsp;分&nbsp;</span>
+                       <div class="input-group">
+                          <input class="form-control" type="text" th:field="*{strScheduleStartDate}" id="date2" readonly>
+                          <span class="input-group-addon">&nbsp;&nbsp;</span>
+                          <input class="form-control" type="time" th:field="*{strScheduleStartTime}">
+                          <span class="input-group-addon input-group-char">〜</span>
+                          <input class="form-control" type="time" th:field="*{strScheduleEndTime}">
+                       </div>
+                   </div>
+                   <div>
+                       <button type="submit" class="btn btn-primary btn-block">登録</button>
                    </div>
                </div>
-               <div class="form-group" id="schedule-form">
-                   <label for="strScheduleStartDate" class="addBtn">
-                       予定作業日時
-                       <span class="addBtn">
-                           <button type="button" class="btn btn-success h-100" id="add-form">日時追加</button>
-                       </span>
-                   </label>
-
-                   <div class="input-group">
-                      <input class="form-control" type="text" th:field="*{strScheduleStartDate}" id="date2" readonly>
-                      <span class="input-group-addon">&nbsp;&nbsp;</span>
-                      <input class="form-control" type="time" th:field="*{strScheduleStartTime}">
-                      <span class="input-group-addon input-group-char">〜</span>
-                      <input class="form-control" type="time" th:field="*{strScheduleEndTime}">
-                   </div>
-               </div>
-               <div>
-                   <button type="submit" class="btn btn-primary btn-block">登録</button>
-               </div>
+               <div class="col"></div>
            </div>
-           <div class="col"></div>
-       </div>
-    </div>
-
-</form>
+        </div>
+    </form>
 
 </body>
 </html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+    <div th:fragment="header">
+        <div class="container">
+        <div align="right">
+            <form th:action="@{/logout}" name="logout" method="post">
+                <a href="member-info">登録情報変更</a> <a
+                    href="javascript:logout.submit()">ログアウト</a>
+            </form>
+        </div>
+        <div class="row">
+            <nav class="nav nav-pills">
+                <a id="nav-home" class="nav-link active" href="/">Home</a>
+                <a id="nav-task" class="nav-link" href="/task-list">タスク一覧</a>
+                <a id="nav-register" class="nav-link" href="/task-registration-form">タスク登録</a>
+            </nav>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

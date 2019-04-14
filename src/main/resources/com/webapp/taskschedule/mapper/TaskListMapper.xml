@@ -15,6 +15,10 @@
            TASK
         WHERE
            MEMBER_ID = #{memberId}
+        AND
+           CURRENT_DATE <![CDATA[<=]]> DEAD_LINE
+        ORDER BY
+           DEAD_LINE;
     </select>
 
     <select id="findTodaysTasks" parameterType="com.webapp.taskschedule.DaoData.TaskScheduleInputDaoData"

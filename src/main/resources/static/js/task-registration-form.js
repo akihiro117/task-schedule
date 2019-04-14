@@ -11,7 +11,7 @@ function init() {
             dateFormat: "yy/mm/dd"
         });
       } );
-    
+
       $( function() {
             $("#date2").datepicker({
                 dateFormat: "yy/mm/dd"
@@ -36,9 +36,9 @@ function addScheduleForm() {
         var lastElement = scheduleForm.lastElementChild;
 
         var clone = lastElement.cloneNode(true);
-        
+
         //各フォームの値をリセット。
-        clone.childNodes[1].value = "";	
+        clone.childNodes[1].value = "";
         clone.childNodes[5].value = "";
         clone.childNodes[9].value = "";
 
@@ -55,6 +55,34 @@ function addScheduleForm() {
             dateFormat: "yy/mm/dd"
         });
     });
+}
+
+// 締切日のバリデーション。
+// 入力した締切日が今日より前の場合、NGとする。
+function validateDeadLine() {
+    // 締切日の要素。
+    var deadLineElVal = document.getElementById('date1').value;
+
+    // 締切日をDate型でインスタンス化する。
+    var inputedDate = new Date(Number(deadLineElVal.substr(0, 4)),
+            Number(deadLineElVal.substr(5, 2) - 1),
+            Number(deadLineElVal.substr(8, 2)));
+
+    // 今日の日時。
+    var today = new Date();
+    // 時刻を00:00:00にするために再度インスタンス化して時刻を設定し直す。
+    var formattedToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+    // 登録ボタン
+    var registerBtn = document.getElementById('register-task');
+
+    if (inputedDate < formattedToday) {
+        // 入力日付が今日より前の場合。
+        window.alert('締切日には今日以降の日付を設定してください。');
+        registerBtn.type = 'button';
+    } else {
+        registerBtn.type = 'submit';
+    }
 }
 
 
